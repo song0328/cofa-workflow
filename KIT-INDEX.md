@@ -35,7 +35,7 @@
 | 이 평가가 무엇을 보는지 | `playbooks/evaluation.md` |
 | 시험 화면 동작·저장·제출·확인 문제 형식 | `playbooks/exam-screen.md` |
 | 배정된 업무 도구(SaaS)가 있다 | `playbooks/saas.md` |
-| 확인 문제(제출 후 질문)를 작업 중에 대비 | `playbooks/followup-prep.md` |
+| 확인 문제(제출 후 질문)를 작업 중에 대비 · 확인문제 노트 | `playbooks/followup-prep.md` + `templates/answer-notes.md` |
 | 사용자에게 언제 무슨 조언을 할지 | `playbooks/reminders.md` |
 | 과제 주제별 지식(보안·결재·날짜·금액·자료 품질·예약·API·화면·외부 연동·AI) | `knowledge/README.md` → 해당 파일 **1~2개만** |
 | 패키지 설치 없이 서버·저장·테스트를 만들어야 한다 | `recipes/README.md` |
