@@ -8,6 +8,8 @@
 |---|---|
 | 막 시작했다 — 경로·README·환경 확인 | `playbooks/start.md` |
 | README를 읽고 분석해야 한다 | `prompts/1-analyze.md` |
+| 어떤 종류의 과제인지 판별 (서비스·기존 코드·사내 시스템·데이터 보고·규정 판정·자동화·AI 기능) | `playbooks/task-types.md` → 해당 유형 파일 하나 |
+| AI가 혼자 정하면 안 되는 지점인지 | `playbooks/decision-gates.md` |
 | 담당자에게 무엇을 어떻게 물을지 | `playbooks/stakeholder.md` |
 | 담당자 답을 받았다 — 사양·계획을 세운다 | `prompts/2-spec.md` + `templates/AGENTS.md` |
 | 구현을 단계별로 진행한다 | `prompts/3-step.md` |
@@ -17,6 +19,7 @@
 | 검사·검증을 어떻게 할지 | `playbooks/verification.md` |
 | 서버·미리보기 화면이 안 뜬다, 명령이 실패한다 | `playbooks/environment.md` |
 | Codex가 같은 실수를 반복·코드를 망쳤다 | `playbooks/recover.md` |
+| 담당자 답이 README와 다름·설치 실패·데이터 깨짐 등 돌발 상황 | `playbooks/situations.md` |
 | git 상태·되돌리기·커밋 범위 | `playbooks/git.md` |
 | 웹 화면·API 과제 | `playbooks/web-app.md` |
 | CSV·표·분석 보고 과제 | `playbooks/data-analysis.md` |
