@@ -10,13 +10,15 @@ AI 코딩 에이전트(Codex 등)와 함께 **README로 주어지는 3시간짜�
 git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
 ```
 
-그다음 AI에게:
+그다음 AI에게 한 줄만:
 
 ```text
-/tmp/kit/KIT-INDEX.md만 먼저 읽어. 지금 상황에 맞는 파일 하나만 열고 그대로 따라. 과제 폴더는 <경로>야. 키트 전체를 읽지 마.
+/tmp/kit/KIT-INDEX.md 읽고 시작해.
 ```
 
-단계마다 짧게 부르면 됩니다.
+AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`만 보내면 됩니다(`playbooks/flow.md`). 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
+
+단계를 직접 부르고 싶으면 이렇게 짧게 부를 수도 있습니다.
 
 | 단계 | 사용자가 칠 문장 |
 |---|---|
