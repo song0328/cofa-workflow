@@ -18,7 +18,15 @@ git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
 
 AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`만 보내면 됩니다(`playbooks/flow.md`). 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
 
-**키트를 못 받았을 때**(clone 실패): 오타만 확인해 한 번 더 → 그래도 안 되면 키트 없이 같은 순서로 진행한다. AI에게 `코드 고치지 말고 README 분석만 해. 요건표·함정·담당자 질문·가정으로.` → 질문은 한 번에 하나 → 사양 → 한 단계씩 구현·검사 → 요건 대조 → 보고서 → 결정 요약.
+**키트를 못 받았을 때**(clone 실패): 오타만 확인해 한 번 더 → git만 막힌 경우를 위해 압축 파일로 받기:
+
+```bash
+curl -sL https://github.com/song0328/cofa-workflow/archive/main.tar.gz | tar xz -C /tmp && mv /tmp/cofa-workflow-main /tmp/kit
+# curl도 없으면
+python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('https://github.com/song0328/cofa-workflow/archive/main.tar.gz'),mode='r|gz').extractall('/tmp')" && mv /tmp/cofa-workflow-main /tmp/kit
+```
+
+그래도 안 되면(인터넷 자체가 막힘) 키트 없이 같은 순서로 진행한다. AI에게 `코드 고치지 말고 README 분석만 해. 요건표·함정·담당자 질문·가정으로.` → 질문은 한 번에 하나 → 사양 → 한 단계씩 구현·검사 → 요건 대조 → 보고서 → 결정 요약.
 
 단계를 직접 부르고 싶으면 이렇게 짧게 부를 수도 있습니다.
 
