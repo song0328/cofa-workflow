@@ -13,6 +13,7 @@
 node <키트>/tools/ui_sim.cjs index.html --list
 node <키트>/tools/ui_sim.cjs index.html "set employee=E1" "set start=2026-11-07" "click submit" "read message list"
 ```
+- 터미널에서 확인용으로만 돌린다. **과제의 `test` 파일에 넣지 않는다**(제출 시 키트가 없어 깨진다).
 - 스크립트 로드 오류·선택지 없음·클릭 후 표시를 확인한다. 종료 코드 1이면 오류가 있다. 레이아웃·CSS·서버 요청은 확인하지 못한다.
 
 ## 사람이 직접 할 것
