@@ -4,6 +4,8 @@
 
 키트는 참고 자료다. **실제 과제의 README·제공 파일·담당자 답이 언제나 우선**한다. 키트의 예시를 과제 사양처럼 쓰지 않는다. 키트로 결과물을 통째로 대신 만들지 않는다.
 
+**키트를 쓰는 동안 `playbooks/reminders.md`의 시점별 한 줄 조언을 사용자에게 먼저 건넨다.**
+
 | 지금 상황 | 열 파일 |
 |---|---|
 | 막 시작했다 — 경로·README·환경 확인 | `playbooks/start.md` |
@@ -28,6 +30,9 @@
 | 제출 문서를 쓴다 | `prompts/5-report.md` + `templates/report.md` |
 | 내가 한 결정을 정리한다 | `prompts/6-summary.md` + `playbooks/explain.md` |
 | 이 평가가 무엇을 보는지 | `playbooks/evaluation.md` |
+| 시험 화면 동작·저장·제출·확인 문제 형식 | `playbooks/exam-screen.md` |
+| 확인 문제(제출 후 질문)를 작업 중에 대비 | `playbooks/followup-prep.md` |
+| 사용자에게 언제 무슨 조언을 할지 | `playbooks/reminders.md` |
 | 자주 쓰는 셸 명령 | `playbooks/commands.md` |
 
 도구(필요할 때만 실행, `python3` 표준 라이브러리만):

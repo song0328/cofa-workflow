@@ -35,6 +35,7 @@ git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
 | `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥요약 |
 | `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서·요구사항·검증 틀 |
 | `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 7가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능 |
+| `playbooks/exam-screen.md` · `followup-prep.md` · `reminders.md` | 시험 화면 동작(저장·제출·권한 창), 확인 문제 대비, AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
 | `tools/` | `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) |
