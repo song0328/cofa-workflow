@@ -46,5 +46,6 @@
 | `python3 <키트>/tools/compare_json.py 기대.json 실제.json` | 기대 결과와 실제 결과 비교 |
 | `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류 |
 | `python3 <키트>/tools/security_check.py 경로` | 비밀 값 의심 위치(값은 숨김) |
+| `node <키트>/tools/ui_sim.cjs index.html "set 칸id=값" "click 버튼id" "read 결과id"` | 브라우저 없이 화면을 흉내 내 선택·클릭 결과 읽기 (`--list`로 칸·버튼 id 목록) |
 
 스킬(선택): `skills/verify-small-delivery/SKILL.md`, `skills/review-local-security/SKILL.md` — 설치하지 않고 읽어서 따른다.
