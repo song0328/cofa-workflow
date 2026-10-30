@@ -31,6 +31,7 @@
 | 내가 한 결정을 정리한다 | `prompts/6-summary.md` + `playbooks/explain.md` |
 | 이 평가가 무엇을 보는지 | `playbooks/evaluation.md` |
 | 시험 화면 동작·저장·제출·확인 문제 형식 | `playbooks/exam-screen.md` |
+| 배정된 업무 도구(SaaS)가 있다 | `playbooks/saas.md` |
 | 확인 문제(제출 후 질문)를 작업 중에 대비 | `playbooks/followup-prep.md` |
 | 사용자에게 언제 무슨 조언을 할지 | `playbooks/reminders.md` |
 | 자주 쓰는 셸 명령 | `playbooks/commands.md` |
