@@ -24,6 +24,7 @@
 | AI가 쓴 요약 숫자를 그대로 인용 | 숫자마다 계산 명령으로 재현 |
 
 ## 구현 요령
+- 먼저 `python3 <키트>/tools/data_profile.py <자료 폴더>`로 형식·빈칸·범위·표기 변형·파일 간 키 불일치를 한 번에 본다(변경본이 있으면 `--compare`). 찾은 것은 `playbooks/edge-hunt.md`대로 근거 붙은 질문으로.
 ```python
 import csv
 from collections import Counter

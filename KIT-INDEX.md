@@ -27,6 +27,7 @@
 | 담당자에게 무엇을 어떻게 물을지 · 첫 질문 묶음 · 2차 왕복(기준 확인) · 답을 돌려 말할 때 | `playbooks/stakeholder.md` |
 | 담당자 답을 받았다 — 사양·계획을 세운다 | `prompts/2-spec.md` + `templates/AGENTS.md` |
 | 구현을 단계별로 진행한다 | `prompts/3-step.md` |
+| **자료에서 숨은 조건·예외를 찾는다(① 첫 15분, 새 자료·변경본을 받았을 때)** | `playbooks/edge-hunt.md` + `tools/data_profile.py` |
 | 자료끼리 다르다·예외 데이터·경계값이 애매하다 | `playbooks/traps.md` |
 | 기능을 더 넣을지·선택조건을 할지 고민 | `playbooks/scope.md` |
 | 120분쯤 — 남은 일을 점검한다 | `prompts/3-step.md` 맨 아래 |
@@ -61,6 +62,7 @@
 | 도구 | 쓰임 |
 |---|---|
 | `python3 <키트>/tools/compare_json.py 기대.json 실제.json` | 기대 결과와 실제 결과 비교 |
+| `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단: 인코딩·형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 중복·파일 간 키 불일치, 두 판의 차이 |
 | `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류 |
 | `python3 <키트>/tools/security_check.py 경로` | 비밀 값 의심 위치(값은 숨김) |
 | `node <키트>/tools/ui_sim.cjs index.html "set 칸id=값" "click 버튼id" "read 결과id"` | 브라우저 없이 화면을 흉내 내 선택·클릭 결과 읽기 (`--list`로 칸·버튼 id 목록) |
