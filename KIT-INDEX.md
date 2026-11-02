@@ -4,9 +4,11 @@
 
 **시작·이어하기의 필수 확인(사용자가 따로 시키지 않는다).** 과제 `AGENTS.md`에 `templates/AGENTS.md`의 「0. 진행자 규칙」이 실제로 있는지 확인하고 빠진 규칙을 채운다(기존 과제 지침 보존). `<키트>/notes/확인문제-노트.md`도 실제 파일을 확인해, 없으면 `templates/answer-notes.md`로 만들고 현재 README·결정 문서·검사 출력·대화에서 확인되는 사실만 채운다. `DECISIONS.md`가 있어도 이 노트를 대신한 것으로 보지 않는다. 상세 규칙은 `playbooks/followup-prep.md`. 기존 작업을 되돌리거나 계획 승인을 받았다고 꾸미지 않는다.
 
-**누락은 AI가 먼저 복구한다.** 단계가 바뀔 때·`이어서`·`노트 보여 줘` 때 진행 상태·노트를 확인한다. 그 사이의 답(질문 문장 만들기·A/B 받기·짧은 설명)은 **명령을 실행하지 않는다** — 토큰도 채점된다. `── 다음 ──` 칸은 매 답 붙인다. 담당자 답·사용자 결정·검사 결과가 바뀌면 관련 노트 칸도 갱신하고 `노트 갱신: Q번호`만 짧게 알린다. 사용자가 `확인문제 대비해 줘`·`노트 정리해 줘`·`노트 보여 줘`라고만 해도 누락 노트를 생성·보완한 뒤 보여 준다. 사용자가 실제로 보지 않은 검사·화면을 "내가 직접 확인했다"고 쓰지 않는다.
+**누락은 AI가 먼저 복구한다.** 단계가 바뀔 때·`이어서`·`노트 보여 줘` 때 진행 상태·노트를 확인한다. 그 사이의 답(질문 문장 만들기·A/B 받기·짧은 설명)은 **명령을 실행하지 않는다** — 토큰도 채점된다. `── 다음 ──` 칸은 매 답 붙인다. 담당자 답·사용자 결정·검사 결과가 바뀌면 관련 노트 칸도 갱신하고 `노트 갱신: 카드 번호`만 짧게 알린다. 사용자가 `확인문제 대비해 줘`·`노트 정리해 줘`·`노트 보여 줘`라고만 해도 누락 노트를 생성·보완한 뒤 보여 준다. 사용자가 실제로 보지 않은 검사·화면을 "내가 직접 확인했다"고 쓰지 않는다.
 
 **짧은 요청도 바로 실행한다.** 사용자가 `ui_sim 해줘`·`ui_sim으로 확인해`라고 하면 연결 도구를 찾거나 설치를 요구하지 않는다. ui_sim은 이 키트의 **로컬 Node 스크립트**다. 현재 과제의 `AGENTS.md`에 키트 실제 경로와 `node <키트>/tools/ui_sim.cjs <화면 HTML> --list` 명령을 먼저 기록한다(이미 있으면 갱신). `kit/tools/ui_sim.cjs`와 `/tmp/kit/tools/ui_sim.cjs` 중 실제 파일을 확인해 실행하고, 나온 id로 정상·경계·오류 흐름을 검사한다. 실제 파일 확인 전에 "없다"고 말하지 않는다. 자세한 순서는 `playbooks/verification.md`의 「ui_sim 짧은 요청 처리」를 따른다.
+
+**확인 문제는 제출물에서 나온다(코드를 보여 주지 않고 기억으로 답한다).** 그래서 처음부터: 답은 한국어·파일명은 영어, 코드는 역할별 파일 4~6개, 제출 문서는 README 요구분 + `DECISIONS.md` + `AI_COLLABORATION.md`로 고정, 단계마다 이해 체크포인트, 마감 40~50분 전 모의 확인 문제. 답 틀은 `playbooks/answer-cards.md`.
 
 키트는 참고 자료다. **실제 과제의 README·제공 파일·담당자 답이 언제나 우선**한다. 키트의 예시를 과제 사양처럼 쓰지 않는다. 키트로 결과물을 통째로 대신 만들지 않는다.
 
@@ -19,9 +21,10 @@
 | 진행자 모드(기본) — 단계 순서·매 답 끝 다음 칸·이어하기 | `playbooks/flow.md` |
 | 막 시작했다 — 경로·README·환경 확인 | `playbooks/start.md` |
 | README를 읽고 분석해야 한다 | `prompts/1-analyze.md` |
-| 어떤 종류의 과제인지 판별 (서비스·기존 코드·사내 시스템·데이터 보고·규정 판정·자동화·AI 기능) | `playbooks/task-types.md` → 해당 유형 파일 하나 |
+| 어떤 종류의 과제인지 판별 (서비스·기존 코드·사내 시스템·데이터 보고·규정 판정·자동화·AI 기능·최적화) | `playbooks/task-types.md` → 해당 유형 파일 하나 |
+| 계산·배정·경로·일정·"최적"·자원 상한이 있다 | `playbooks/types/optimization.md` (+ 지식 `knowledge/optimization.md`, 틀 `recipes/opt_heuristics.py`) |
 | AI가 혼자 정하면 안 되는 지점인지 | `playbooks/decision-gates.md` |
-| 담당자에게 무엇을 어떻게 물을지 | `playbooks/stakeholder.md` |
+| 담당자에게 무엇을 어떻게 물을지 · 첫 질문 묶음 · 2차 왕복(기준 확인) · 답을 돌려 말할 때 | `playbooks/stakeholder.md` |
 | 담당자 답을 받았다 — 사양·계획을 세운다 | `prompts/2-spec.md` + `templates/AGENTS.md` |
 | 구현을 단계별로 진행한다 | `prompts/3-step.md` |
 | 자료끼리 다르다·예외 데이터·경계값이 애매하다 | `playbooks/traps.md` |
@@ -33,15 +36,20 @@
 | 담당자 답이 README와 다름·설치 실패·데이터 깨짐 등 돌발 상황 | `playbooks/situations.md` |
 | git 상태·되돌리기·커밋 범위 | `playbooks/git.md` |
 | 웹 화면·API 과제 | `playbooks/web-app.md` |
+| 구조·책임 분리·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
+| 로그인·역할·데이터 격리 | `knowledge/security.md` (+ 틀 `recipes/python_auth.py`) |
+| Docker로 띄워야 한다 | `recipes/docker/README.md` |
 | CSV·표·분석 보고 과제 | `playbooks/data-analysis.md` |
 | 보안 점검이 필요하다 | `playbooks/security.md` |
 | 요건마다 충족 근거를 대조한다 | `prompts/4-check.md` |
-| 제출 문서를 쓴다 | `prompts/5-report.md` + `templates/report.md` |
+| 제출 문서를 쓴다 | `prompts/5-report.md` + `templates/DECISIONS.md` · `templates/AI_COLLABORATION.md` (다른 보고서를 요구하면 `templates/report.md`) |
 | 내가 한 결정을 정리한다 | `prompts/6-summary.md` + `playbooks/explain.md` |
 | 이 평가가 무엇을 보는지 | `playbooks/evaluation.md` |
 | 시험 화면 동작·저장·제출·확인 문제 형식 | `playbooks/exam-screen.md` |
 | 배정된 업무 도구(SaaS)가 있다 | `playbooks/saas.md` |
-| 확인 문제(제출 후 질문)를 작업 중에 대비 · 확인문제 노트 | `playbooks/followup-prep.md` + `templates/answer-notes.md` |
+| 확인 문제(제출 후 질문)를 작업 중에 대비 · 확인문제 노트 · 모의 확인 문제 | `playbooks/followup-prep.md` + `templates/answer-notes.md` |
+| 확인 문제 답 틀(9가지 카드 · 4단계 뼈대 · 5분 쓰는 법) | `playbooks/answer-cards.md` |
+| Codex 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
 | 사용자에게 언제 무슨 조언을 할지 | `playbooks/reminders.md` |
 | 과제 주제별 지식(보안·결재·날짜·금액·자료 품질·예약·API·화면·외부 연동·AI) | `knowledge/README.md` → 해당 파일 **1~2개만** |
 | 패키지 설치 없이 서버·저장·테스트를 만들어야 한다 | `recipes/README.md` |

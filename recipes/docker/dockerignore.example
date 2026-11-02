@@ -1,0 +1,31 @@
+# 과제 루트에 .dockerignore로 복사한다.
+# 작업 폴더가 홈(~)이면 빌드 맥락에 .ssh·.cache·.git·키트까지 들어간다 → 전부 막고 필요한 것만 허용한다.
+*
+!server.py
+!server.cjs
+!app
+!static
+!public
+!requirements.txt
+!package.json
+!package-lock.json
+# 허용한 폴더 안에서도 다시 뺀다
+**/__pycache__
+**/*.pyc
+**/node_modules
+**/.env
+**/.env.*
+**/*.sqlite3
+**/*.db
+**/*.log
+
+# 과제 전용 폴더라면 허용 목록 대신 이것만으로도 된다:
+# .git
+# .env
+# .env.*
+# node_modules
+# __pycache__
+# .venv
+# data/
+# *.sqlite3
+# *.log

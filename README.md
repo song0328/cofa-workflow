@@ -44,12 +44,13 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | 폴더 | 내용 |
 |---|---|
 | `KIT-INDEX.md` | AI용 목차 — 상황별로 읽을 파일 하나 |
-| `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥요약 |
-| `knowledge/` | 주제별 지식 — 보안, 승인·결재, 날짜·시간, 금액, 자료 품질, 예약·재고, API, 화면, 외부 연동, AI 기능 (물을 것·함정·구현 요령·검사 사례) |
-| `recipes/` | 패키지 없이 쓰는 서버·테스트 틀 (Node 22·Python 3.11 표준 기능, 실행 확인) |
-| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서·요구사항·검증 틀 |
-| `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 7가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능 |
-| `playbooks/exam-screen.md` · `followup-prep.md` · `reminders.md` | 시험 화면 동작(저장·제출·권한 창), 확인 문제 대비, AI가 시점마다 건넬 한 줄 조언 |
+| `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥대비(외울 것 · 모의 확인 문제) |
+| `knowledge/` | 주제별 지식 — 최적화, 서비스 구조(책임 분리·동시 수정·비동기·운영 전 점검), 보안(인증·권한·격리), 승인·결재, 날짜·시간, 금액, 자료 품질, 예약·재고, API, 화면, 외부 연동, AI 기능 (물을 것·함정·구현 요령·검사 사례) |
+| `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
+| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서 `DECISIONS.md`·`AI_COLLABORATION.md`, 확인문제 노트, 요구사항·검증 틀 |
+| `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 8가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능, 최적화·배정·경로 |
+| `playbooks/answer-cards.md` · `followup-prep.md` | 확인 문제 9가지 답 카드(4단계 뼈대·5분 쓰는 법), 작업 중 대비·이해 체크포인트·모의 확인 문제 |
+| `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
 | `tools/` | `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) |

@@ -1,0 +1,18 @@
+# Node 서버용 틀. 과제 루트에 Dockerfile로 복사해 진입 파일·포트·데이터 경로를 과제 README대로 고친다.
+# 서버는 PORT·DATA_DIR 환경변수를 읽고 0.0.0.0에 바인딩하며 GET /health → 200 을 준다.
+FROM node:22-slim
+ENV NODE_ENV=production PORT=3000 DATA_DIR=/data
+WORKDIR /app
+
+# package.json이 있을 때만 주석을 푼다(패키지 없이 쓰면 그대로 둔다. 맞는 파일이 없으면 COPY가 실패한다).
+# COPY package*.json ./
+# RUN npm ci --omit=dev
+
+COPY . .
+RUN mkdir -p /data && chown node:node /data
+USER node
+VOLUME ["/data"]
+EXPOSE 3000
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"
+CMD ["node", "server.cjs"]

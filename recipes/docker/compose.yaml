@@ -1,0 +1,22 @@
+# README가 compose를 요구할 때만 과제 루트에 둔다.
+# docker compose up --build -d → curl -s localhost:3000/health → docker compose down (이름 있는 볼륨의 자료는 남는다)
+services:
+  app:
+    build: .                      # 과제 루트의 Dockerfile (Dockerfile.python/.node를 복사한 것)
+    ports:
+      - "3000:3000"               # 호스트:컨테이너. 8090·8081·2222는 피한다
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
+      # ADMIN_PASSWORD: ${ADMIN_PASSWORD}   # 비밀값은 커밋하지 않는 .env에서
+    volumes:
+      - app-data:/data
+    restart: unless-stopped
+    healthcheck:                  # Node면 test를 Dockerfile.node의 HEALTHCHECK 명령으로 바꾼다
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/health', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+volumes:
+  app-data:

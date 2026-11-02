@@ -11,5 +11,6 @@
 | 규정·정책·약관 + "판정·검토·답변 작성", 코드 거의 없음 | 규정 해석·판정 | `playbooks/types/policy-review.md` |
 | 파일 변환·배치·정리·알림, "자동화" | 자동화 스크립트 | `playbooks/types/automation.md` |
 | "AI/LLM 기능을 넣어라", 요약·분류·추천 | AI 기능 포함 | `playbooks/types/ai-feature.md` |
+| 최소화·최대화·배정·경로·일정·묶기, 자원 상한(대수·정원·시간) | 최적화(서비스와 함께 나오면 둘 다) | `playbooks/types/optimization.md` |
 
 공통: 유형과 무관하게 `prompts/` 순서, `playbooks/decision-gates.md`의 결정 지점, `playbooks/verification.md`의 검증 원칙은 같다.
