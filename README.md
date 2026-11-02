@@ -57,7 +57,7 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
-| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
+| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
 | `skills/` | `verify-small-delivery`, `review-local-security` — 설치 없이 읽어서 사용 |
 
 ## 개발 확인
