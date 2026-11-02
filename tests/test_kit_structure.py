@@ -58,6 +58,15 @@ class KitStructureTest(unittest.TestCase):
                     checked += 1
         self.assertGreater(checked, 15)
 
+    def test_human_messages_fit_input_limit(self):
+        """시험 입력창은 한 번에 1000자. 사람이 보낼 예시 문장은 300자, 6칸 지시 틀은 1000자 이내."""
+        files = sorted((ROOT/'stages').glob('*.md')) + [ROOT/'playbooks'/p for p in ('lead-like-dev.md', 'stakeholder.md', 'codex.md', 'edge-hunt.md')]
+        for f in files:
+            for q in re.findall(r'"([^"\n]{20,})"', text(f)):
+                self.assertLessEqual(len(q), 300, f'{f.name}: {q[:40]}…')
+        block = re.search(r"```\n(\[목표\].*?)```", text(ROOT/'playbooks'/'codex.md'), re.S).group(1)
+        self.assertLessEqual(len(block), 1000)
+
     def test_kit_read(self):
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):
