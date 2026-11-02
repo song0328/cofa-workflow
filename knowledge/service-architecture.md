@@ -97,5 +97,26 @@ def update_plan(conn, pid, version, body, actor):
 - 동시 수정: 같은 `version`으로 두 번 저장 → 200, 409, 값은 첫 번째
 - 실패한 가져오기: 틀린 줄 섞인 파일 → 400, 조회 결과 이전 그대로
 - 본인만: 이용자 A 토큰으로 B 자료 → 403/404, A 목록에 B 없음
-- 중복 제출: 같은 요청 ID 두 번 → 한 건만, 같은 응답
+- 멱등(요청 ID를 쓸 때만):
+
+| 입력 | 기대 |
+|---|---|
+| 같은 요청 ID + 같은 본문 두 번 | 1건, 두 번째도 **같은 응답** |
+| 같은 요청 ID + 다른 본문 | 409, 상태 그대로 |
+| 커밋 직전 실패 주입 | 모든 표 0행 → 같은 ID로 재시도하면 1행 |
+| 다른 요청 ID + 같은 내용 | 2행(과하게 중복 제거하지 않는다 — 담당자가 막으라 할 때만) |
+
+- 진짜 동시 요청(한정 수량·중복 생성이 요구일 때): 순서대로 두 번은 동시성 검사가 아니다. `threading.Barrier(n)`로 n개를 동시에 출발시킨다. 기대: 생성 1건 + 409 수 > 0(0이면 경쟁이 안 일어났다 → n을 늘려 다시).
+```python
+import threading, urllib.request, urllib.error, json
+N = 8; bar = threading.Barrier(N); codes = []
+def hit():
+    req = urllib.request.Request(URL, json.dumps(BODY).encode(), {"content-type": "application/json"})
+    bar.wait()                                   # 다 모이면 동시에 출발
+    try: codes.append(urllib.request.urlopen(req, timeout=5).status)
+    except urllib.error.HTTPError as e: codes.append(e.code)
+ts = [threading.Thread(target=hit) for _ in range(N)]; [t.start() for t in ts]; [t.join() for t in ts]
+assert codes.count(201) == 1 and codes.count(409) > 0, codes
+```
+- 관측성(운영·장애 질문 대비): 요청마다 JSON 한 줄 로그 `{req_id, method, path, status, ms, error}`(본문·토큰·개인정보 없음) + 응답 헤더 `X-Request-Id`. 진단은 입력 → 단계별 출력을 따라가 **처음 어긋나는 단계**를 찾는다.
 - 작업 상태: `queued → running → done`, 틀린 입력 → `failed` + 확정본 유지, 진행 중 재요청 → 409 또는 같은 `jobId`

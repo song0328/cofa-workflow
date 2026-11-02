@@ -1,11 +1,13 @@
 # ⓪ 시작 (0~5분)
 
 ## 할 일
-1. 명령 한 번으로 위치·시각·환경: `pwd; date; ls; git status -s | head; python3 --version; node --version`
-2. 과제 README를 찾는다(키트 폴더·홈 숨김 폴더 제외). 언어별 README가 여럿이면 다 본다.
-3. 과제 폴더에 `AGENTS.md`를 만든다: `templates/AGENTS.md`의 「0. 상시 규칙」만 먼저. 과제에 이미 AGENTS.md가 있으면 원본을 지우지 않고 맨 위에 그 칸만 덧붙인다.
-4. 키트 폴더에 `notes/확인문제-노트.md`를 `templates/answer-notes.md` 틀로 만든다(과제 폴더 밖).
-5. AGENTS.md 「7」칸에 시작 시각과 **화면의 종료 시각**을 적는다. 제출 시작 목표 = 종료 −50분.
+1. 명령 한 번: `pwd; date; ls; git status -s | head; sed -n '1,12p' AGENTS.md`
+2. **AGENTS.md에 「0. 상시 규칙」이 있나?** Codex는 지침을 세션 시작 때 읽는다.
+   - 있음(사람이 codex 전에 `kit_setup.py`를 돌림) → 그대로 진행.
+   - 없음 → 사람에게: `"새 터미널 탭에서 python3 /tmp/kit/tools/kit_setup.py 실행 → 여기서 /new → /tmp/kit/KIT-INDEX.md 읽고 이어서."`
+   - 과제가 준 AGENTS.md·`AGENTS.override.md`가 있으면 원문을 지우지 않는다. override가 있으면 사람에게 알린다.
+3. 과제 README를 찾는다(키트·홈 숨김 폴더 제외). 언어별 README가 여럿이면 다 본다.
+4. AGENTS.md 「7」칸에 시작 시각과 **화면의 종료 시각**을 적는다. 제출 시작 = 종료 −50분. kit_setup 출력의 라이브러리 목록·키트 커밋도 적어 둔다.
 
 ## 놓치면 안 되는 것
 - [ ] 사람에게: SaaS 아이콘(네모 4개) 한 번 눌러 보기, DMs 담당자 이름·역할 알려 주기

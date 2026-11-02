@@ -5,6 +5,7 @@
 
   python3 predict_questions.py [과제 폴더]      (기본: 현재 폴더)
 출력 끝의 「출제 범위 경고」는 내가 설명하기 어려운 파일이 제출물에 섞였는지 알려 준다.
+「과장 단정어 경고」는 문서(.md)의 '최적·항상·보장' 같은 말을 찾는다 — 근거 없는 단정은 그대로 질문이 된다.
 종료 코드: 0 · 2 (제출 파일을 하나도 못 찾음)
 """
 import re
@@ -23,6 +24,10 @@ SIGNS = {
     "알고리즘": r"heuristic|greedy|two_opt|2-?opt|cluster|sweep|solver|optimi|knapsack|dijkstra|휴리스틱|그리디|최적",
     "검증": r"assert|unittest|pytest|node:test|expect\(",
 }
+# 근거 없이 쓰면 "정말 그런가?" 질문이 되는 단정어. 숫자 앞뒤는 다른 숫자의 일부가 아닐 때만(10건·1100%는 제외).
+OVERCLAIM = re.compile(r"최적|모든|항상|완벽|보장|실시간|안전|검증됨|(?<![\d.])100\s?%|(?<![\d.])0\s?건|절대|무조건"
+                       r"|\b(?:optimal|always|guarantee[sd]?)\b", re.I)
+HEDGED = re.compile(r"않|아니(?:다|며|고|라)|\bnot\b|n't\b|cannot", re.I)  # 부정·한계 문장은 정직한 표현이라 뺀다
 
 
 def files_of(root):
@@ -57,6 +62,23 @@ def read(p):
         return p.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return ""
+
+
+def overclaims(root, docs, limit=10):
+    """문서에서 단정어가 든 줄을 찾는다. 코드 블록(```) 안과 부정 문장은 뺀다. 반환: (보일 줄, 전체 수)"""
+    hits = []
+    for rel in docs:
+        fence = False
+        for no, line in enumerate(read(root / rel).splitlines(), 1):
+            if line.lstrip().startswith("```"):
+                fence = not fence
+                continue
+            if fence or HEDGED.search(line):
+                continue
+            words = list(dict.fromkeys(m.group(0) for m in OVERCLAIM.finditer(line)))
+            if words:
+                hits.append(f"{rel.as_posix()}:{no} — {', '.join(words)} — {line.strip()[:60]}")
+    return hits[:limit], len(hits)
 
 
 def main(argv):
@@ -137,6 +159,15 @@ def main(argv):
         print("- `DECISIONS.md` 결정 표(D1…)가 비어 있다 → 1번 칸 재료가 없다")
     if not ai_rows:
         print("- `AI_COLLABORATION.md` 판단 기록(A1…)이 비어 있다 → 6번 칸 재료가 없다")
+    shown, total = overclaims(root, sorted(docs, key=lambda r: (r.name.lower() not in EXPECTED_DOCS, r.as_posix())))
+    if shown:
+        print()
+        print("## 과장 단정어 경고 (근거 있는 표현으로 바꾼다 — 단정은 그대로 질문이 된다)")
+        print('- 예: "최적" → "실행 가능, 하한 대비 n%" · "항상" → "검사한 n개 경우에서" · "보장" → "테스트 E3로 확인한 범위에서"')
+        for line in shown:
+            print(f"- {line}")
+        if total > len(shown):
+            print(f"- … 외 {total - len(shown)}줄")
     return 0
 
 

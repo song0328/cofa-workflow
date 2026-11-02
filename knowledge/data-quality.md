@@ -21,6 +21,9 @@
 | 분모 바뀜 | 비율마다 "분자/분모" 숫자를 함께 표시 |
 | 앞뒤 공백·대소문자 다른 같은 값 | `trim`·대소문자 통일 후 비교 (규칙으로 기록) |
 | 원자료 수정 | **원본은 그대로**, 정제 결과는 새 파일 |
+| 빈 문자열을 `Number()`에 → 0 | `Number('')`·`Number(' ')`은 0이다. 빈칸을 먼저 거른 뒤 변환, `Number.isFinite` 확인 |
+| 헤더 중복·빈 헤더, 줄마다 열 수 다름 | 가져올 때 거절하고 몇 번째 줄인지 알린다(DictReader는 조용히 덮어쓰거나 `None` 키로 넣는다) |
+| 내보낸 CSV를 엑셀이 수식으로 실행(`=HYPERLINK(...)`) | 내보낼 때 `= + - @`·탭으로 시작하는 칸 앞에 `'`를 붙인다(CSV를 내보낼 때만) |
 | AI가 쓴 요약 숫자를 그대로 인용 | 숫자마다 계산 명령으로 재현 |
 
 ## 구현 요령
@@ -37,10 +40,25 @@ for r in sorted(rows, key=lambda r: (r["id"], r["updated_at"])):  # 키별 최�
 ```
 - 제외 규칙마다 **제외 건수**를 센다: "전체 120 → 중복 4 · 취소 7 · 기간 밖 2 제외 → 107". 보고서 첫 줄에 이 흐름.
 - 결과 숫자는 스크립트로 재생성 가능하게(명령 한 줄을 보고서에).
+```python
+def read_strict(path):                                   # 가져오기: BOM 제거, 헤더·열 수 검사
+    rows = list(csv.reader(open(path, encoding="utf-8-sig", newline="")))
+    head = [h.strip() for h in rows[0]]
+    if "" in head or len(set(head)) != len(head): raise ValueError(f"헤더 문제: {head}")
+    bad = [i + 2 for i, r in enumerate(rows[1:]) if len(r) != len(head)]
+    if bad: raise ValueError(f"열 수 다른 줄: {bad[:5]}")
+    return [dict(zip(head, r)) for r in rows[1:]]
+safe_cell = lambda v: "'" + v if str(v)[:1] in ("=", "+", "-", "@", "	") else v   # 내보내기
+```
+```js
+const num = s => (String(s ?? '').trim() === '' ? null : Number(s));   // 빈칸 → null(0 아님), NaN이면 오류 목록
+```
 
 ## 검사 사례
 - 같은 키 2행(정정 전·후) → 1건, 최신 값
 - 취소 행 1개 → 집계 제외, 제외 건수 1
 - 빈 금액·`N/A` → 오류 목록으로
 - 분모 0 → 0으로 나누기 대신 "해당 없음"
+- 빈 금액 `""` → 0이 아니라 오류·제외 / 헤더 중복·열 수 다른 줄 → 거절 + 줄 번호
+- 이름이 `=1+1`인 행을 내보내기 → 파일에 `'=1+1`
 - 합계 대조: 분류별 합 = 전체

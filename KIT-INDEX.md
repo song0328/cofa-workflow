@@ -7,7 +7,7 @@
 4. 키트는 참고 자료다. **과제 README·제공 자료·담당자 답이 언제나 우선**한다. 키트 예시를 사양으로 쓰지 않고, 키트로 결과물을 통째로 대신 만들지 않는다.
 
 ## 시작·이어하기
-- `읽고 시작해` → `stages/0-start.md`부터.
+- `읽고 시작해` → `stages/0-start.md`부터(AGENTS.md는 **세션 시작 때** 읽힌다 — 상시 규칙이 없으면 0번 카드대로 `kit_setup.py` 후 `/new`).
 - `읽고 이어서` → 과제 `AGENTS.md` 진행 줄의 단계 카드부터. 「0. 상시 규칙」이 없으면 `templates/AGENTS.md`에서 그 칸만 복구한다. `<키트>/notes/확인문제-노트.md`가 없으면 `templates/answer-notes.md`로 만들고 실제 기록에서 확인되는 사실만 채운다. 계획 승인·검사·담당자 답을 꾸며 만들지 않는다.
 - `/tmp/kit`이 사라졌으면 사람에게 키트를 다시 받게 한다(`README.md` 받기 줄).
 
@@ -44,15 +44,19 @@
 | 여러 탭에 독립 작업·아이디어를 동시에 맡기기 | `playbooks/parallel.md` |
 | 시험 화면 동작·제출 흐름·환경 사실 | `playbooks/exam-screen.md` |
 | 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
-| 사람이 보낼 수 있는 말 전체 · 고득점 자동 행동 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
-| 평가가 보는 것 | `playbooks/evaluation.md` |
+| 사람이 보낼 말 전체 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
+| 평가가 보는 것(세부 16항목) | `playbooks/evaluation.md` |
+| 예측·분류·모델 평가 / 반도체 자료(수율·결함·관리도) | `playbooks/types/prediction.md` · `knowledge/semiconductor.md` |
+| 시험 전 리허설·연습 과제 | `playbooks/rehearsal.md` · `practice/README.md` |
 | 사람이 개발자처럼 이끌 문장·생각할 순간 · 용어 | `playbooks/lead-like-dev.md` · `playbooks/dev-glossary.md` |
 | Docker · 지도 시각화 · 서버·테스트 틀 | `recipes/README.md` |
 
 ## 도구 (필요할 때만 · 출력을 그대로 보인다)
 | 명령 | 쓰임 |
 |---|---|
+| `python3 <키트>/tools/kit_setup.py` (codex 켜기 전, 과제 폴더에서) | 상시 규칙 깔기·노트·환경 점검 |
 | `python3 <키트>/tools/kit_read.py <파일> ["절"]` | 키트 문서의 목차·절만 읽기 |
+| `python3 <키트>/tools/evidence.py check --name <이름> -- <명령>` · `link` · `handoff` | 검사 증거 기록·오래된 증거 표시·요건별 통과 확인 |
 | `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단(형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 불일치), 두 판의 차이 |
 | `python3 <키트>/tools/predict_questions.py <과제 폴더>` | 내 제출 파일로 서술형 예상 질문 6칸 + 전제 틀린 질문 + 출제 범위 경고 |
 | `python3 <키트>/tools/tab_task.py new T2 --role 탐구\|작업\|검증 --goal … --done …` · `status` · `done T2` | 보조 탭 작업 카드와 게시판(사람은 새 탭에 한 줄만 친다) |

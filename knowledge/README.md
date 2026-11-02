@@ -16,6 +16,8 @@
 | 화면·폼·목록·대시보드·버튼 | `ui-basics.md` |
 | 메일·문자·알림·외부 API·웹훅·SaaS 업무 도구 | `integrations.md` |
 | AI·LLM·요약·분류·추천·챗봇 | `ai-llm.md` |
+| 예측·분류 모델·정확도·재현율·학습/테스트 분할·임계값 | `../playbooks/types/prediction.md` |
+| 수율·불량·결함·wafer·die·lot·재검사·SPC·관리한계·Cpk·설비 센서 | `semiconductor.md` |
 | 최적·최소·최대·배정·경로·일정·묶기·자원 상한 | `optimization.md` (진행 순서는 `../playbooks/types/optimization.md`) |
 | 구조·책임 분리·동기/비동기·동시 수정·실패 시 보존·재시작·운영 전 점검 | `service-architecture.md` |
 | 패키지 설치 없이 서버·저장·테스트를 만들어야 한다 | `../recipes/README.md` |

@@ -32,3 +32,27 @@
 - **담당자에게는 사소한 것부터 하나씩.** 일괄 요청은 막혀 있다. 불친절한 답이 현업에 가깝다.
 - **과설계는 감점 요인.** 범용으로 좋은 설계보다 이 요구에 맞는 설계.
 - 고득점자: 지시서를 조목조목 따지며 AI와 대화를 많이, 오래 걸리는 구현은 나눠 맡긴다.
+
+## 세부 항목과 배점 (공식 아님 — 과거 평가 화면 사진 전사 · 상대 비중 참고용)
+출처: 공개 키트 gunbbaaang/skills `probe-hackathon-coach/references/rubric.md`(2026-10-30 전사). 서로 다른 제출물 사진 3장에 보인 분모일 뿐 공식 배점·총점이 아니다. 결과물 3항목의 상위 구분명은 사진에 없었다. 이번 시험 설정은 다를 수 있다.
+
+| 구분 | 항목 | 보인 배점 | 키트에서 다루는 곳 |
+|---|---|---:|---|
+| 결과물 | 기능적 정확성 | 30 | `stages/4-build.md` · `playbooks/verification.md` · `tools/compare_json.py` |
+| 결과물 | 실무적 품질 위험 | 16 | `playbooks/edge-hunt.md` · `knowledge/security.md` · `tools/security_check.py` |
+| 결과물 | 제출물 완성도 | 10 | `stages/5-check-report.md` · `stages/7-submit.md` |
+| 의도 관리 | 목표 구체화 | 16 | `stages/1-analyze.md` · `templates/requirements.md` |
+| 의도 관리 | 재사용 작업 체계 | 14 | `templates/AGENTS.md` · `playbooks/lead-like-dev.md` |
+| 의도 관리 | 의도 갱신·맥락 유지 | 18 | `templates/DECISIONS.md` · `stages/2-ask.md` |
+| 의도 관리 | 검증 루프 설계 | 20 | `stages/4-build.md` · `playbooks/verification.md` |
+| 의도 관리 | 문제 상황·제약 정의 | 16 | `stages/1-analyze.md` · `stages/3-plan.md` |
+| 의도 관리 | 작업 분해·위임 | 16 | `stages/3-plan.md` · `playbooks/parallel.md` · `tools/tab_task.py` |
+| 인지 관리 | 동작·리스크 예측 | 30 | `playbooks/lead-like-dev.md` · `playbooks/edge-hunt.md` |
+| 인지 관리 | 구조 이해 | 35 | `stages/6-prepare.md` · `playbooks/answer-cards.md` · `tools/predict_questions.py` |
+| 인지 관리 | 의사결정 근거 | 35 | `templates/DECISIONS.md` · `templates/AI_COLLABORATION.md` · `playbooks/answer-cards.md` |
+| 소통 관리 | 정보 활용 | 20 | `stages/2-ask.md` · `tools/data_profile.py` |
+| 소통 관리 | 문제 정의 | 25 | `stages/0-start.md` · `playbooks/stakeholder.md` |
+| 소통 관리 | 소통 명료성 | 25 | `playbooks/stakeholder.md` |
+| 소통 관리 | 요구사항 수집 | 30 | `stages/2-ask.md` · `playbooks/stakeholder.md` · `playbooks/edge-hunt.md` |
+
+- 읽는 법: 인지(구조 이해·결정 근거 각 35)와 소통(요구사항 수집 30)이 크다 — 만든 것을 설명하고 담당자에게서 조건을 끌어내는 흔적이 결과물만큼 중요하다. 합산 점수나 백분율로 바꾸지 않는다.

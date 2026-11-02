@@ -19,6 +19,10 @@
 | 템플릿 변수 빈칸(`{이름}` 그대로) | 필수 변수 검사 |
 | 업무 도구 화면의 정보 누락 | 시작할 때 **SaaS 아이콘(네모 4개)**을 눌러 보고, 그 화면의 데이터·공지를 사용자가 AI에게 요약해 전달 |
 | 업무 도구 값과 파일 값 충돌 | 둘 다 기록하고 담당자에게 기준 확인 |
+| 외부 호출이 멈춰 요청 전체가 멈춤 | 시간 상한(예: 5초). 넘으면 실패로 보고 대체 결과 |
+| 발송·결제 같은 비멱등 호출을 자동 재시도 | 자동 재시도 금지(두 번 나간다). 재시도는 조회처럼 멱등인 호출만 |
+| 대체(모의) 결과를 실제처럼 표시 | 결과에 `source`(`live` 또는 `fallback`)를 붙이고 화면에 "데모/대체 결과" 표시 |
+| 키를 화면 JS·응답에 | 키는 서버 환경 변수에만. 브라우저는 내 서버만 부른다 |
 
 ## 구현 요령
 ```js
@@ -33,8 +37,26 @@ function planNotices(items, sentKeys) {           // 실제 발송 없음
   return out;
 }
 ```
+- 외부 호출은 **감싸는 함수 하나**로만 한다(필요할 때만: 실제 외부 호출이 있을 때).
+```js
+async function callExternal(url, body) {          // 시간 상한 + 출처 표시, 비멱등이면 재시도 없음
+  const ac = new AbortController(); const t = setTimeout(() => ac.abort(), 5000);
+  try {
+    if (!process.env.API_KEY) return { source: 'fallback', data: mock(body) };
+    const res = await fetch(url, { method: 'POST', body: JSON.stringify(body), signal: ac.signal,
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${process.env.API_KEY}` } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return { source: 'live', data: await res.json() };
+  } catch (e) { return { source: 'fallback', data: mock(body), error: String(e.message) }; }
+  finally { clearTimeout(t); }
+}
+```
+- Python은 `urllib.request.urlopen(req, timeout=5)`. 대체 결과를 쓸지(또는 오류로 낼지)는 담당자 답대로.
+
 ## 검사 사례
 - 같은 대상·유형 두 번 → 한 번만 계획됨
 - 필수 값 빈칸 → 오류 목록
 - 모의 외부 실패 → 실패 목록, 나머지는 진행
+- 응답 지연(6초) → 5초에 끊고 `source: fallback`, 화면에 "데모/대체 결과"
+- 발송 호출 실패 → 자동으로 두 번 보내지 않음 / 응답·화면 JS에 키 문자열 없음
 - 업무 도구 화면에만 있는 조건(예: 최근 공지) 반영 여부

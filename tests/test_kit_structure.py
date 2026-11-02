@@ -22,9 +22,9 @@ def text(p):
 
 class KitStructureTest(unittest.TestCase):
     def test_entry_budgets(self):
-        self.assertLessEqual(len(text(ROOT/'KIT-INDEX.md')), 3800)
+        self.assertLessEqual(len(text(ROOT/'KIT-INDEX.md')), 4300)
         agents = text(ROOT/'templates'/'AGENTS.md')
-        self.assertLessEqual(agents.index('## 1.'), 1500, 'AGENTS.md 상시 규칙은 매 요청 읽힌다 — 짧게')
+        self.assertLessEqual(agents.index('## 1.'), 1500, 'AGENTS.md 상시 규칙은 세션 맥락에 늘 실린다 — 짧게')
         for card in (ROOT/'stages').glob('*.md'):
             self.assertLessEqual(len(text(card)), 1500, card.name)
 

@@ -8,9 +8,12 @@ AI 코딩 에이전트(Codex 등)와 함께 **README로 주어지는 3시간짜�
 
 ```bash
 git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
+python3 /tmp/kit/tools/kit_setup.py      # 과제 폴더(시험: 홈 ~)에서, codex를 켜기 전에
 ```
 
-그다음 AI에게 한 줄만:
+`kit_setup.py`는 과제 폴더에 `AGENTS.md` 상시 규칙을 깔고(과제가 준 지침은 보존), 노트·작업 폴더를 키트 안에 만들고, 환경(파이썬·라이브러리·Docker·디스크)을 한 번에 보여 줍니다. **Codex는 AGENTS.md를 세션을 시작할 때 읽기 때문에** codex를 켜기 전에 실행합니다. 깜빡하고 세션 중에 만들었다면 `/new`로 새 세션을 열고 이어서 하면 됩니다.
+
+그다음 `codex`를 켜고 AI에게 한 줄만:
 
 ```text
 /tmp/kit/KIT-INDEX.md 읽고 시작해.
@@ -18,7 +21,7 @@ git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
 
 AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`, `노트 보여 줘`, `모의 확인 문제 해줘`만 보내면 됩니다.
 
-**토큰을 아끼는 구조**: AI는 목차(`KIT-INDEX.md`)와 **지금 단계 카드 하나**(`stages/`)만 읽고, 더 필요하면 `tools/kit_read.py`로 문서의 **절 하나만** 읽습니다. 매 요청 자동으로 읽히는 과제 `AGENTS.md`의 상시 규칙은 짧게 유지합니다. 카드마다 「놓치면 안 되는 것」과 조건부로 더 읽을 절이 있어, 한 파일만 보다가 중요한 것을 놓치지 않게 했습니다. `tests/test_kit_structure.py`가 크기 상한과 카드가 가리키는 파일·절이 실제로 있는지 검사합니다. 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
+**토큰을 아끼는 구조**: AI는 목차(`KIT-INDEX.md`)와 **지금 단계 카드 하나**(`stages/`)만 읽고, 더 필요하면 `tools/kit_read.py`로 문서의 **절 하나만** 읽습니다. 세션 시작 때 읽혀 매 요청 맥락에 실리는 과제 `AGENTS.md`의 상시 규칙은 짧게 유지합니다. 카드마다 「놓치면 안 되는 것」과 조건부로 더 읽을 절이 있어, 한 파일만 보다가 중요한 것을 놓치지 않게 했습니다. `tests/test_kit_structure.py`가 크기 상한과 카드가 가리키는 파일·절이 실제로 있는지 검사합니다. 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
 
 **키트를 못 받았을 때**(clone 실패): 오타만 확인해 한 번 더 → git만 막힌 경우를 위해 압축 파일로 받기:
 
@@ -52,13 +55,14 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
 | `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서 `DECISIONS.md`·`AI_COLLABORATION.md`, 확인문제 노트, 요구사항·검증 틀 |
 | `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 8가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능, 최적화·배정·경로 |
+| `practice/` · `playbooks/rehearsal.md` | 연습 과제 2개(자료·담당자 역할 카드·예상 질문)와 시험 전 키트 행동 점검 시나리오 9장 |
 | `playbooks/parallel.md` | 여러 Codex 탭 동시 운영 — 메인/탐구/작업/검증 역할, 작업 카드, 파일 소유, 합치는 법 |
-| `playbooks/lead-like-dev.md` · `dev-glossary.md` | 사람이 개발자처럼 이끄는 9가지 순간과 보낼 문장, 용어 30개(뜻·쓰는 문장) |
+| `playbooks/lead-like-dev.md` · `dev-glossary.md` | 사람이 개발자처럼 이끄는 10가지 순간과 보낼 문장, 용어 30개(뜻·쓰는 문장) |
 | `playbooks/answer-cards.md` · `followup-prep.md` | 확인 문제 9가지 답 카드(4단계 뼈대·5분 쓰는 법), 작업 중 대비·이해 체크포인트·모의 확인 문제 |
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
-| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(여러 탭 작업 카드·게시판) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
+| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(여러 탭 작업 카드·게시판) · `kit_setup.py`(codex 전 상시 규칙 깔기) · `evidence.py`(검사 증거·오래된 증거) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
 | `skills/` | `verify-small-delivery`, `review-local-security` — 설치 없이 읽어서 사용 |
 
 ## 개발 확인

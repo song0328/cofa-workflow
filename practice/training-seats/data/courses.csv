@@ -1,0 +1,8 @@
+course_id,title,hours,mandatory_roles
+C01,안전보건 기초,2,ALL
+C02,정보보안 기초,2,engineer;office;manager
+C03,설비 안전 실습,4,technician
+C04,데이터 리터러시,3,
+C05,리더십 기초,3,manager
+C06,화학물질 취급,3,technician
+C07,생성형 AI 활용,2,

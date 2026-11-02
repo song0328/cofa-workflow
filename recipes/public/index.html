@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>항목 관리</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- 화면 틀: 과제 README의 화면·필드·문구에 맞게 고친다. 외부 CDN·폰트를 쓰지 않는다. -->
+  <header class="bar"><h1>항목 관리</h1><span id="role" class="badge">운영자</span></header>
+  <main>
+    <form id="form" class="card">
+      <label>이름 <input id="name" required maxlength="50"></label>
+      <label>수량 <input id="qty" type="number" min="1" step="1" required></label>
+      <button id="save" type="submit">추가</button>
+      <p id="msg" class="msg" role="status"></p>
+    </form>
+    <section class="card">
+      <h2>목록</h2>
+      <table><thead><tr><th>이름</th><th class="num">수량</th></tr></thead><tbody id="list"></tbody></table>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
