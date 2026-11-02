@@ -1,70 +1,60 @@
 # KIT-INDEX — AI가 먼저 읽는 목차
 
-**이 파일만 먼저 읽는다. 키트 전체를 읽지 않는다.** 아래 표에서 지금 상황에 맞는 파일 **하나**만 연다. 토큰 사용량도 평가된다.
+## 읽는 법 (토큰도 채점된다)
+1. **이 파일 → 지금 단계 카드 하나**(`stages/`). 카드에 할 일·놓치면 안 되는 것·조건부로 더 읽을 절이 다 있다.
+2. 더 필요하면 파일 전체가 아니라 **절만**: `python3 <키트>/tools/kit_read.py <파일> "<절 제목 일부>"` (목차만: 파일 이름만 준다).
+3. 단계 카드의 「놓치면 안 되는 것」은 다음 단계로 넘어가기 전에 확인한다. 아래 「상황별」 표에 해당하면 그 절도 읽는다 — 카드 하나만 보다가 놓치지 않게.
+4. 키트는 참고 자료다. **과제 README·제공 자료·담당자 답이 언제나 우선**한다. 키트 예시를 사양으로 쓰지 않고, 키트로 결과물을 통째로 대신 만들지 않는다.
 
-**시작·이어하기의 필수 확인(사용자가 따로 시키지 않는다).** 과제 `AGENTS.md`에 `templates/AGENTS.md`의 「0. 진행자 규칙」이 실제로 있는지 확인하고 빠진 규칙을 채운다(기존 과제 지침 보존). `<키트>/notes/확인문제-노트.md`도 실제 파일을 확인해, 없으면 `templates/answer-notes.md`로 만들고 현재 README·결정 문서·검사 출력·대화에서 확인되는 사실만 채운다. `DECISIONS.md`가 있어도 이 노트를 대신한 것으로 보지 않는다. 상세 규칙은 `playbooks/followup-prep.md`. 기존 작업을 되돌리거나 계획 승인을 받았다고 꾸미지 않는다.
+## 시작·이어하기
+- `읽고 시작해` → `stages/0-start.md`부터.
+- `읽고 이어서` → 과제 `AGENTS.md` 진행 줄의 단계 카드부터. 「0. 상시 규칙」이 없으면 `templates/AGENTS.md`에서 그 칸만 복구한다. `<키트>/notes/확인문제-노트.md`가 없으면 `templates/answer-notes.md`로 만들고 실제 기록에서 확인되는 사실만 채운다. 계획 승인·검사·담당자 답을 꾸며 만들지 않는다.
+- `/tmp/kit`이 사라졌으면 사람에게 키트를 다시 받게 한다(`README.md` 받기 줄).
 
-**누락은 AI가 먼저 복구한다.** 단계가 바뀔 때·`이어서`·`노트 보여 줘` 때 진행 상태·노트를 확인한다. 그 사이의 답(질문 문장 만들기·A/B 받기·짧은 설명)은 **명령을 실행하지 않는다** — 토큰도 채점된다. `── 다음 ──` 칸은 매 답 붙인다. 담당자 답·사용자 결정·검사 결과가 바뀌면 관련 노트 칸도 갱신하고 `노트 갱신: 카드 번호`만 짧게 알린다. 사용자가 `확인문제 대비해 줘`·`노트 정리해 줘`·`노트 보여 줘`라고만 해도 누락 노트를 생성·보완한 뒤 보여 준다. 사용자가 실제로 보지 않은 검사·화면을 "내가 직접 확인했다"고 쓰지 않는다.
+## 단계 카드 (3시간 기준 대략 시각 · 화면 타이머가 우선)
+| 단계 | 카드 | 시각 |
+|---|---|---|
+| ⓪ 시작 | `stages/0-start.md` | 0~5분 |
+| ① 분석 · 자료 진단 · 예외 후보 | `stages/1-analyze.md` | ~25분 |
+| ①-질문 담당자 | `stages/2-ask.md` | ~40분(기다리며 다른 일) |
+| ② 사양·계획·구조 (최적화면 모델 계약·방법 수준·2차 왕복) | `stages/3-plan.md` | ~45분 |
+| ③ 구현 (첫 완주 ~90분 · 기능 동결 ~150분) | `stages/4-build.md` | ~150분 |
+| ④ 대조 · ⑤ 제출 문서 | `stages/5-check-report.md` | +15분 |
+| ⑥ 서술형 대비 · 모의 확인 문제 | `stages/6-prepare.md` | +15분 |
+| ⑦ 제출 (종료 −50분) | `stages/7-submit.md` | — |
 
-**짧은 요청도 바로 실행한다.** 사용자가 `ui_sim 해줘`·`ui_sim으로 확인해`라고 하면 연결 도구를 찾거나 설치를 요구하지 않는다. ui_sim은 이 키트의 **로컬 Node 스크립트**다. 현재 과제의 `AGENTS.md`에 키트 실제 경로와 `node <키트>/tools/ui_sim.cjs <화면 HTML> --list` 명령을 먼저 기록한다(이미 있으면 갱신). `kit/tools/ui_sim.cjs`와 `/tmp/kit/tools/ui_sim.cjs` 중 실제 파일을 확인해 실행하고, 나온 id로 정상·경계·오류 흐름을 검사한다. 실제 파일 확인 전에 "없다"고 말하지 않는다. 자세한 순서는 `playbooks/verification.md`의 「ui_sim 짧은 요청 처리」를 따른다.
-
-**확인 문제는 제출물에서 나온다(코드를 보여 주지 않고 기억으로 답한다).** 그래서 처음부터: 답은 한국어·파일명은 영어, 코드는 역할별 파일 4~6개, 제출 문서는 README 요구분 + `DECISIONS.md` + `AI_COLLABORATION.md`로 고정, 단계마다 이해 체크포인트, 마감 40~50분 전 모의 확인 문제. 답 틀은 `playbooks/answer-cards.md`.
-
-키트는 참고 자료다. **실제 과제의 README·제공 파일·담당자 답이 언제나 우선**한다. 키트의 예시를 과제 사양처럼 쓰지 않는다. 키트로 결과물을 통째로 대신 만들지 않는다.
-
-**기본은 진행자 모드다.** 사용자가 "읽고 시작해"·"읽고 이어서"처럼만 말했으면 바로 `playbooks/flow.md`를 열고 그대로 따른다. 과제 폴더는 스스로 찾고, **매 답 끝에 `── 다음 ──` 칸**(단계 · 사람이 할 일 · 나에게 보낼 말)을 붙인다. 이어서 하는 경우는 과제 폴더의 `AGENTS.md` 진행 상태 줄부터 읽는다. 아래 표는 그 안에서 단계별로 열 파일이다.
-
-**키트를 쓰는 동안 `playbooks/reminders.md`의 시점별 한 줄 조언을 사용자에게 먼저 건넨다.**
-
-| 지금 상황 | 열 파일 |
+## 상황별 — 해당하면 이 절을 더 읽는다
+| 상황 | 파일 · 절 |
 |---|---|
-| 진행자 모드(기본) — 단계 순서·매 답 끝 다음 칸·이어하기 | `playbooks/flow.md` |
-| 막 시작했다 — 경로·README·환경 확인 | `playbooks/start.md` |
-| README를 읽고 분석해야 한다 | `prompts/1-analyze.md` |
-| 어떤 종류의 과제인지 판별 (서비스·기존 코드·사내 시스템·데이터 보고·규정 판정·자동화·AI 기능·최적화) | `playbooks/task-types.md` → 해당 유형 파일 하나 |
-| 계산·배정·경로·일정·"최적"·자원 상한이 있다 | `playbooks/types/optimization.md` (+ 지식 `knowledge/optimization.md`, 틀 `recipes/opt_heuristics.py`) |
-| AI가 혼자 정하면 안 되는 지점인지 | `playbooks/decision-gates.md` |
-| 담당자에게 무엇을 어떻게 물을지 · 첫 질문 묶음 · 2차 왕복(기준 확인) · 답을 돌려 말할 때 | `playbooks/stakeholder.md` |
-| 담당자 답을 받았다 — 사양·계획을 세운다 | `prompts/2-spec.md` + `templates/AGENTS.md` |
-| 구현을 단계별로 진행한다 | `prompts/3-step.md` |
-| **자료에서 숨은 조건·예외를 찾는다(① 첫 15분, 새 자료·변경본을 받았을 때)** | `playbooks/edge-hunt.md` + `tools/data_profile.py` |
-| 자료끼리 다르다·예외 데이터·경계값이 애매하다 | `playbooks/traps.md` |
-| 기능을 더 넣을지·선택조건을 할지 고민 | `playbooks/scope.md` |
-| 120분쯤 — 남은 일을 점검한다 | `prompts/3-step.md` 맨 아래 |
-| 검사·검증을 어떻게 할지 | `playbooks/verification.md` |
-| 서버·미리보기 화면이 안 뜬다, 명령이 실패한다 | `playbooks/environment.md` |
-| Codex가 같은 실수를 반복·코드를 망쳤다 | `playbooks/recover.md` |
-| 담당자 답이 README와 다름·설치 실패·데이터 깨짐 등 돌발 상황 | `playbooks/situations.md` |
-| git 상태·되돌리기·커밋 범위 | `playbooks/git.md` |
-| 웹 화면·API 과제 | `playbooks/web-app.md` |
-| 구조·책임 분리·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
-| 로그인·역할·데이터 격리 | `knowledge/security.md` (+ 틀 `recipes/python_auth.py`) |
-| Docker로 띄워야 한다 | `recipes/docker/README.md` |
-| 점·경로·배정 결과를 지도처럼 보여 줘야 한다 | `recipes/svg_map.py`(서버에서) · `recipes/svg_map.js`(화면에서) — 그림과 같은 내용을 표로도 |
-| CSV·표·분석 보고 과제 | `playbooks/data-analysis.md` |
-| 보안 점검이 필요하다 | `playbooks/security.md` |
-| 요건마다 충족 근거를 대조한다 | `prompts/4-check.md` |
-| 제출 문서를 쓴다 | `prompts/5-report.md` + `templates/DECISIONS.md` · `templates/AI_COLLABORATION.md` (다른 보고서를 요구하면 `templates/report.md`) |
-| 내가 한 결정을 정리한다 | `prompts/6-summary.md` + `playbooks/explain.md` |
-| 이 평가가 무엇을 보는지 | `playbooks/evaluation.md` |
-| 시험 화면 동작·저장·제출·확인 문제 형식 | `playbooks/exam-screen.md` |
-| 배정된 업무 도구(SaaS)가 있다 | `playbooks/saas.md` |
-| 확인 문제(제출 후 질문)를 작업 중에 대비 · 확인문제 노트 · 모의 확인 문제 | `playbooks/followup-prep.md` + `templates/answer-notes.md` |
-| 확인 문제 답 틀(9가지 카드 · 4단계 뼈대 · 5분 쓰는 법) | `playbooks/answer-cards.md` |
-| Codex 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
-| 사용자에게 언제 무슨 조언을 할지 | `playbooks/reminders.md` |
-| 과제 주제별 지식(보안·결재·날짜·금액·자료 품질·예약·API·화면·외부 연동·AI) | `knowledge/README.md` → 해당 파일 **1~2개만** |
-| 패키지 설치 없이 서버·저장·테스트를 만들어야 한다 | `recipes/README.md` |
-| 자주 쓰는 셸 명령 | `playbooks/commands.md` |
+| 자료에서 예외·숨은 조건 찾기 | `playbooks/edge-hunt.md` |
+| 계산·배정·경로·일정·"최적" | `playbooks/types/optimization.md` · 지식 `knowledge/optimization.md` · 틀 `recipes/opt_heuristics.py` |
+| 과제 유형 판별(서비스·기존 코드·사내 시스템·데이터 보고·규정·자동화·AI 기능) | `playbooks/task-types.md` → 유형 파일 하나 |
+| 주제 지식(날짜·금액·예약·API·화면·외부 연동·AI·자료 품질) | `knowledge/README.md` 표 → 파일 1~2개의 "담당자에게 물을 것"·"흔한 함정" |
+| 로그인·역할·데이터 격리 | `knowledge/security.md` · 틀 `recipes/python_auth.py` |
+| 구조·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
+| 담당자 질문 더(여럿·예·리뷰어로 쓰기·2차 왕복) | `playbooks/stakeholder.md` |
+| AI가 혼자 정하면 안 되는 지점 | `playbooks/decision-gates.md` |
+| 자료끼리 다름·단서 조항·경계값 | `playbooks/traps.md` |
+| 기능을 더 넣을지·과설계 | `playbooks/scope.md` |
+| 검증 방법·ui_sim·지도 화면 | `playbooks/verification.md` |
+| 서버·미리보기·환경 오류 | `playbooks/flow.md` "화면 미리보기" · `playbooks/environment.md` |
+| Codex가 같은 실수·코드를 망침 | `playbooks/recover.md` · `playbooks/git.md` |
+| 담당자 답 변경·설치 실패·데이터 깨짐 등 돌발 | `playbooks/situations.md` |
+| 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
+| 시험 화면 동작·제출 흐름·환경 사실 | `playbooks/exam-screen.md` |
+| 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
+| 사람이 보낼 수 있는 말 전체 · 고득점 자동 행동 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
+| 평가가 보는 것 | `playbooks/evaluation.md` |
+| Docker · 지도 시각화 · 서버·테스트 틀 | `recipes/README.md` |
 
-도구(필요할 때만 실행, `python3` 표준 라이브러리만):
-
-| 도구 | 쓰임 |
+## 도구 (필요할 때만 · 출력을 그대로 보인다)
+| 명령 | 쓰임 |
 |---|---|
+| `python3 <키트>/tools/kit_read.py <파일> ["절"]` | 키트 문서의 목차·절만 읽기 |
+| `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단(형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 불일치), 두 판의 차이 |
+| `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류(값은 숨김) |
 | `python3 <키트>/tools/compare_json.py 기대.json 실제.json` | 기대 결과와 실제 결과 비교 |
-| `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단: 인코딩·형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 중복·파일 간 키 불일치, 두 판의 차이 |
-| `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류 |
 | `python3 <키트>/tools/security_check.py 경로` | 비밀 값 의심 위치(값은 숨김) |
-| `node <키트>/tools/ui_sim.cjs index.html "set 칸id=값" "click 버튼id" "read 결과id"` | 브라우저 없이 화면을 흉내 내 선택·클릭 결과 읽기 (`--list`로 칸·버튼 id 목록) |
+| `node <키트>/tools/ui_sim.cjs index.html --list` · `"set id=값" "click id" "read id"` | 브라우저 없이 화면 입력·클릭·표시 확인. `ui_sim 해줘`만 받아도 이 로컬 파일을 찾아 실행한다(연결·설치 요구 금지) |
 
-스킬(선택): `skills/verify-small-delivery/SKILL.md`, `skills/review-local-security/SKILL.md` — 설치하지 않고 읽어서 따른다.
+스킬(선택, 읽어서 따름): `skills/verify-small-delivery/SKILL.md`, `skills/review-local-security/SKILL.md`

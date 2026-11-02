@@ -16,7 +16,9 @@ git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
 /tmp/kit/KIT-INDEX.md 읽고 시작해.
 ```
 
-AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`만 보내면 됩니다(`playbooks/flow.md`). 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
+AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`, `노트 보여 줘`, `모의 확인 문제 해줘`만 보내면 됩니다.
+
+**토큰을 아끼는 구조**: AI는 목차(`KIT-INDEX.md`)와 **지금 단계 카드 하나**(`stages/`)만 읽고, 더 필요하면 `tools/kit_read.py`로 문서의 **절 하나만** 읽습니다. 매 요청 자동으로 읽히는 과제 `AGENTS.md`의 상시 규칙은 짧게 유지합니다. 카드마다 「놓치면 안 되는 것」과 조건부로 더 읽을 절이 있어, 한 파일만 보다가 중요한 것을 놓치지 않게 했습니다. `tests/test_kit_structure.py`가 크기 상한과 카드가 가리키는 파일·절이 실제로 있는지 검사합니다. 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
 
 **키트를 못 받았을 때**(clone 실패): 오타만 확인해 한 번 더 → git만 막힌 경우를 위해 압축 파일로 받기:
 
@@ -43,7 +45,8 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 
 | 폴더 | 내용 |
 |---|---|
-| `KIT-INDEX.md` | AI용 목차 — 상황별로 읽을 파일 하나 |
+| `KIT-INDEX.md` | AI용 목차 — 읽는 법, 단계 카드 표, 상황별로 더 읽을 절, 도구 |
+| `stages/` | 단계 카드 8장(⓪시작 ~ ⑦제출) — 할 일·놓치면 안 되는 것·조건부로 더 읽을 절·사용자에게 건넬 말 |
 | `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥대비(외울 것 · 모의 확인 문제) |
 | `knowledge/` | 주제별 지식 — 최적화, 서비스 구조(책임 분리·동시 수정·비동기·운영 전 점검), 보안(인증·권한·격리), 승인·결재, 날짜·시간, 금액, 자료 품질, 예약·재고, API, 화면, 외부 연동, AI 기능 (물을 것·함정·구현 요령·검사 사례) |
 | `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
@@ -53,7 +56,7 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
-| `tools/` | `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) |
+| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
 | `skills/` | `verify-small-delivery`, `review-local-security` — 설치 없이 읽어서 사용 |
 
 ## 개발 확인
