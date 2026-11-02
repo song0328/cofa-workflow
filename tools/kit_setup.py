@@ -40,6 +40,8 @@ def rules_block(template):
 
 
 def setup_agents(task, template):
+    if KIT.as_posix() != "/tmp/kit":                     # 연습 노트북 등 키트가 다른 곳이면 실제 경로로 바꿔 넣는다
+        template = template.replace("/tmp/kit", KIT.as_posix())
     target = task / "AGENTS.md"
     if target.exists():
         text = target.read_text(encoding="utf-8")
@@ -85,7 +87,7 @@ def main(argv=None):
         f"환경: {sys.version.split()[0]} (python3) · node {sh(['node', '--version'])} · {sh(['git', '--version'])} · docker {'있음' if shutil.which('docker') else '없음'}",
         f"라이브러리: {', '.join(libs) or '표준 라이브러리만'}  ← 방법 수준 A/B/C 고를 때 근거(DECISIONS에)",
         f"디스크 여유 {du.free // 2**30}GB{mem} · 키트 커밋 {sh(['git', '-C', str(KIT), 'rev-parse', '--short', 'HEAD'])} (AI_COLLABORATION 「4」에 적는다)",
-        "다음: `codex` 실행 → \"/tmp/kit/KIT-INDEX.md 읽고 시작해.\"",
+        f"다음: `codex` 실행 → \"{KIT.as_posix()}/KIT-INDEX.md 읽고 시작해.\"",
     ]
     print("\n".join(lines))
     return 0
