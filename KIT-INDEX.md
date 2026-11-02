@@ -45,6 +45,7 @@
 | 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
 | 사람이 보낼 수 있는 말 전체 · 고득점 자동 행동 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
 | 평가가 보는 것 | `playbooks/evaluation.md` |
+| 사람이 개발자처럼 이끌 문장·생각할 순간 · 용어 | `playbooks/lead-like-dev.md` · `playbooks/dev-glossary.md` |
 | Docker · 지도 시각화 · 서버·테스트 틀 | `recipes/README.md` |
 
 ## 도구 (필요할 때만 · 출력을 그대로 보인다)

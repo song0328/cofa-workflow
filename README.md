@@ -52,6 +52,7 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
 | `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서 `DECISIONS.md`·`AI_COLLABORATION.md`, 확인문제 노트, 요구사항·검증 틀 |
 | `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 8가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능, 최적화·배정·경로 |
+| `playbooks/lead-like-dev.md` · `dev-glossary.md` | 사람이 개발자처럼 이끄는 9가지 순간과 보낼 문장, 용어 30개(뜻·쓰는 문장) |
 | `playbooks/answer-cards.md` · `followup-prep.md` | 확인 문제 9가지 답 카드(4단계 뼈대·5분 쓰는 법), 작업 중 대비·이해 체크포인트·모의 확인 문제 |
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
