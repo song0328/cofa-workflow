@@ -8,7 +8,7 @@ const path = require('node:path');
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = path.resolve(__dirname);                 // 정적 파일 기준 폴더
-const DATA = path.join(ROOT, 'data.json');            // 간단한 저장소(필요 없으면 메모리만)
+const DATA = path.join(process.env.DATA_DIR || ROOT, 'data.json'); // 저장 파일. Docker에서는 DATA_DIR=/data(볼륨)
 const MAX_BODY = 1024 * 1024;                         // 본문 1MB 제한
 
 let db = { items: [], seq: 0 };
@@ -47,6 +47,7 @@ function createItem(input) {
 }
 
 const routes = {
+  'GET /health': async (req, res) => send(res, 200, { ok: true }),
   'GET /api/items': async (req, res) => send(res, 200, { items: [...db.items].sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id)) }),
   'POST /api/items': async (req, res) => { const r = createItem(await readJson(req)); r.error ? fail(res, r.status, r.error) : send(res, r.status, r.item); },
   'GET /api/items/:id': async (req, res, id) => { const it = db.items.find(x => x.id === id); it ? send(res, 200, it) : fail(res, 404, 'NOT_FOUND'); },

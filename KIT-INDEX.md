@@ -39,6 +39,7 @@
 | 구조·책임 분리·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
 | 로그인·역할·데이터 격리 | `knowledge/security.md` (+ 틀 `recipes/python_auth.py`) |
 | Docker로 띄워야 한다 | `recipes/docker/README.md` |
+| 점·경로·배정 결과를 지도처럼 보여 줘야 한다 | `recipes/svg_map.py`(서버에서) · `recipes/svg_map.js`(화면에서) — 그림과 같은 내용을 표로도 |
 | CSV·표·분석 보고 과제 | `playbooks/data-analysis.md` |
 | 보안 점검이 필요하다 | `playbooks/security.md` |
 | 요건마다 충족 근거를 대조한다 | `prompts/4-check.md` |

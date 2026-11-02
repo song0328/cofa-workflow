@@ -14,7 +14,9 @@ ROOT = Path(__file__).resolve().parent
 MAX_BODY = 1024 * 1024
 
 # 저장소: sqlite3 (파일 하나). 매개변수 바인딩(?)만 쓴다.
-DB = sqlite3.connect(os.environ.get("DB_PATH", str(ROOT / "data.sqlite3")), check_same_thread=False)
+DATA_DIR = Path(os.environ.get("DATA_DIR", str(ROOT)))   # Docker에서는 DATA_DIR=/data (볼륨)
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+DB = sqlite3.connect(os.environ.get("DB_PATH", str(DATA_DIR / "data.sqlite3")), check_same_thread=False)
 DB.execute("CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, qty INTEGER NOT NULL)")
 DB.commit()
 
@@ -64,6 +66,9 @@ class Handler(SimpleHTTPRequestHandler):
         return data
 
     def do_GET(self):
+        if self.path.split("?")[0] == "/health":   # 헬스체크: DB까지 확인
+            DB.execute("SELECT 1")
+            return self.send_json(200, {"ok": True})
         if self.path.split("?")[0] == "/api/items":
             return self.send_json(*list_items())
         m = re.fullmatch(r"/api/items/(\d+)", self.path.split("?")[0])

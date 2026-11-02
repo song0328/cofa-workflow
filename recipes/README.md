@@ -7,12 +7,13 @@
 
 | 파일 | 쓰임 | 확인 |
 |---|---|---|
-| `node-server.cjs` | JSON API + 정적 파일 서버, 본문 크기 제한, 경로 이탈 방지, JSON 파일 저장 | `node node-server.cjs` → `curl -s localhost:3000/api/items` |
-| `python_server.py` | 같은 기능의 Python 버전 (`http.server`, `sqlite3` 예시) | `python3 python_server.py` |
+| `node-server.cjs` | JSON API + 정적 파일 서버, 본문 크기 제한, 경로 이탈 방지, JSON 파일 저장(`DATA_DIR`), `GET /health` | `node node-server.cjs` → `curl -s localhost:3000/api/items` |
+| `python_server.py` | 같은 기능의 Python 버전 (`http.server`, `sqlite3`, `DATA_DIR`, `GET /health`) | `python3 python_server.py` |
 | `node-test.cjs` | `node:test` 표 기반 테스트(정상·경계·오류) | `node --test node-test.cjs` |
 | `python_test.py` | `unittest` 표 기반 테스트 | `python3 -m unittest python_test.py -v` |
 | `python_auth.py` | 비밀번호 해시·세션 만료·역할 확인·본인 데이터만 (표준 라이브러리) | `python3 python_auth.py` |
 | `opt_heuristics.py` | 일반 휴리스틱 틀: 하한, FFD 묶기, sweep 군집, 최근접 경로 + 2-opt, 독립 검사기 예시 | `python3 opt_heuristics.py` (기준선 vs 개선 표 출력) |
+| `svg_map.py` · `svg_map.js` | 점·경로를 SVG 지도로 그리기(위경도·평면, 방향 화살표, 말풍선, 같은 내용의 표 `#route-table`). 서버에서 그리거나(Python) 화면에서 그린다(JS) | `python3 svg_map.py` → `demo_map.html` |
 | `docker/` | Dockerfile(Python·Node)·compose·dockerignore 예시와 기동 점검 순서 | `recipes/docker/README.md` |
 
 서버는 사람이 새 터미널 탭에서 띄우고 Browser 미리보기 PORT 칸에 포트를 넣는다(`playbooks/flow.md` 「화면 미리보기」).

@@ -1,6 +1,6 @@
 # recipes/docker — 컨테이너 틀 (README가 Docker를 요구할 때만)
 
-과제 README가 Docker·컨테이너 실행을 요구할 때만 쓴다. 과제에 Dockerfile이 있으면 그것을 우선한다. 과제 계약에 맞게 복사해 고쳐 쓴다.
+과제 README가 Docker·컨테이너 실행을 요구할 때만 쓴다. (2026-11-02 실제 확인: `Dockerfile.python`+`python_server.py`, `Dockerfile.node`+`node-server.cjs` 각각 build → healthy → 자료 생성 → `docker restart` 뒤 보존 → 비루트 실행, `compose.yaml` up → healthy.) 과제에 Dockerfile이 있으면 그것을 우선한다. 과제 계약에 맞게 복사해 고쳐 쓴다.
 
 | 파일 | 과제 루트에 둘 이름 |
 |---|---|
@@ -10,7 +10,7 @@
 
 ## 고칠 곳
 - 진입 파일(`CMD`), 포트(`PORT`·`EXPOSE`·`-p`), 데이터 경로(`DATA_DIR=/data`)를 과제대로. 셋 다 맞아야 접속된다.
-- 서버가 `PORT`·`DATA_DIR`를 읽고 `0.0.0.0`에 바인딩하게. `python_server.py`는 `DB_PATH`를 읽으므로 `DB_PATH=/data/data.sqlite3`를 넘긴다.
+- 서버가 `PORT`·`DATA_DIR`를 읽고 `0.0.0.0`에 바인딩하게. 키트의 `python_server.py`·`node-server.cjs`는 이미 `PORT`·`DATA_DIR`를 읽고 `GET /health`가 있다.
 - `/health`가 없으면 `GET /health → 200 {"ok":true}`를 추가한다(DB 연결까지 확인하면 더 좋다).
 - `.dockerignore` 허용 목록을 실제 파일·폴더 이름으로 고친다.
 
