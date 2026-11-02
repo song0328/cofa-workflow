@@ -17,8 +17,8 @@
 | 화면 확인 | `playbooks/verification.md` "ui_sim 짧은 요청 처리" · 지도는 "지도·그림 화면" |
 | 서버·미리보기 | `playbooks/flow.md` "화면 미리보기" |
 | 막힘·같은 오류 3번 | `playbooks/recover.md` (원인 후보 2~3개부터) |
-| 끊김·재접속·큰 일 맡기기 | `playbooks/codex.md` "끊김" · "큰 일 맡기기" |
-| 돌발(담당자 답 변경·설치 실패 등) | `playbooks/situations.md` |
+| 끊김·큰 일 맡기기 · 병렬 탭 | `playbooks/codex.md` "끊김" · `playbooks/parallel.md` |
+| 돌발 상황 | `playbooks/situations.md` |
 
 ## 사람이 이끄는 말 (`playbooks/lead-like-dev.md` · 하루 최소: AI를 의심해 고친 기록 2회, 이유 붙인 결정 3회)
 "불변식 테스트부터 써" · "이 숫자 결과 파일만 읽어서 다시 계산해 봐" · "틀리는 입력 3개로 깨 봐" · 첫 완주 뒤 반론 1회

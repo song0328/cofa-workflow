@@ -41,6 +41,7 @@
 | Codex가 같은 실수·코드를 망침 | `playbooks/recover.md` · `playbooks/git.md` |
 | 담당자 답 변경·설치 실패·데이터 깨짐 등 돌발 | `playbooks/situations.md` |
 | 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
+| 여러 탭에 독립 작업·아이디어를 동시에 맡기기 | `playbooks/parallel.md` |
 | 시험 화면 동작·제출 흐름·환경 사실 | `playbooks/exam-screen.md` |
 | 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
 | 사람이 보낼 수 있는 말 전체 · 고득점 자동 행동 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
@@ -54,6 +55,7 @@
 | `python3 <키트>/tools/kit_read.py <파일> ["절"]` | 키트 문서의 목차·절만 읽기 |
 | `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단(형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 불일치), 두 판의 차이 |
 | `python3 <키트>/tools/predict_questions.py <과제 폴더>` | 내 제출 파일로 서술형 예상 질문 6칸 + 전제 틀린 질문 + 출제 범위 경고 |
+| `python3 <키트>/tools/tab_task.py new T2 --role 탐구\|작업\|검증 --goal … --done …` · `status` · `done T2` | 보조 탭 작업 카드와 게시판(사람은 새 탭에 한 줄만 친다) |
 | `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류(값은 숨김) |
 | `python3 <키트>/tools/compare_json.py 기대.json 실제.json` | 기대 결과와 실제 결과 비교 |
 | `python3 <키트>/tools/security_check.py 경로` | 비밀 값 의심 위치(값은 숨김) |
