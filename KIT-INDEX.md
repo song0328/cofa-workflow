@@ -33,7 +33,7 @@
 | 로그인·역할·데이터 격리 | `knowledge/security.md`의 PRD 근거 → 보안 SSOT → 구현 계획 → 검사 · 틀 `recipes/python_auth.py` |
 | 구조·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
 | 담당자 질문 더(여럿·예·리뷰어로 쓰기·2차 왕복) | `playbooks/stakeholder.md` |
-| AI가 혼자 정하면 안 되는 지점 | `playbooks/decision-gates.md` |
+| AI가 혼자 정하면 안 되는 지점 · A/B를 다른 세션에 물을 때 | `playbooks/decision-gates.md` |
 | 자료끼리 다름·단서 조항·경계값 | `playbooks/traps.md` |
 | 기능을 더 넣을지·과설계 | `playbooks/scope.md` |
 | 검증 방법·ui_sim·지도 화면 | `playbooks/verification.md` |
