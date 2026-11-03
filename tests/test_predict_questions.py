@@ -128,6 +128,16 @@ class PredictQuestionsTest(unittest.TestCase):
             self.assertNotIn('근거:', example)
             self.assertNotIn('Q1', example)
 
+    def test_plain_test_file_is_a_check(self):
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t)
+            (d/'src').mkdir()
+            (d/'src'/'app.js').write_text('module.exports={}\n', encoding='utf-8')
+            (d/'test.cjs').write_text("require('node:assert');\n", encoding='utf-8')
+            _, out = run(d)
+            self.assertIn('코드 1 · 검사 1', out)
+            self.assertIn('`test.cjs`', out)
+
     def test_missing_material_and_empty(self):
         with tempfile.TemporaryDirectory() as t:
             d = Path(t)

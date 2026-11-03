@@ -1,7 +1,7 @@
 # ⑦ 제출 (과제 타이머 15분 남으면 시작 · 실제 화면 안내가 우선)
 
 ## 순서
-1. **제출물 정리**: AGENTS.md 「8. 제출물 목록」과 실제 파일 대조. 실험·임시 파일·worktree·키트 흔적을 찾는다. `pwd`, `git status -s`, `ls -a`. 과제 파일에 키트 참조가 없는지 `grep -rn "kit" --include=*.py --include=*.js --include=*.cjs .`
+1. **제출물 정리**: AGENTS.md 「8. 제출물 목록」과 실제 파일 대조. 실험·임시 파일·worktree·키트 흔적을 찾는다. `pwd`, `git status -s`, `ls -a`. 과제 파일·제출 문서에 키트·도구 이름이 없는지 `grep -rniE "kit|ui_sim|predict_questions" --include=*.py --include=*.js --include=*.cjs --include=*.md . | grep -v "^./kit/"`
 2. **깨끗한 상태로 다시 띄우기**: 새 데이터 폴더(`DATA_DIR=/tmp/fresh`)로 처음부터 실행해 `/health`와 핵심 흐름 하나(README가 Docker를 요구하면 `docker compose up --build`).
 3. 과제가 정한 검사 명령(README·package.json·처음 받은 test 파일)을 찾아 **사람이 터미널에서 직접** 실행하게 한 줄로 준다. 실패면 제출하지 않고 그 오류만 고친다.
 4. 사람: Ctrl+S 저장 확인 → 제출 문서 직접 읽기 → 기존 Git 저장소면 **제출 직전 커밋**, 아니면 생략 → `답 파일 보여 줘`로 `Answers.md` 두 번(제출물이다 — 지우지 않는다).

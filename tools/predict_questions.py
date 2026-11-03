@@ -37,6 +37,8 @@ OWNERSHIP = {
     "오류 격리": r"격리|quarantin|오류 목록|제외 목록|\breject",
     "복구 주체": r"복구|재처리|롤백|되돌리|\brecover|\brollback|\breprocess",
 }
+# 검사 파일: tests/ 폴더, test_*.py, *.test.js, *_test.go, 그리고 과제가 준 test.cjs·tests.py 같은 이름
+TEST_FILE = re.compile(r"(^|/)tests?/|test_|\.test\.|_test\.|(^|/)tests?\.[a-z]+$")
 HEDGED = re.compile(r"않|아니(?:다|며|고|라)|\bnot\b|n't\b|cannot", re.I)  # 부정·한계 문장은 정직한 표현이라 뺀다
 
 
@@ -97,8 +99,8 @@ def main(argv):
     if not rels:
         print("제출 파일을 찾지 못함")
         return 2
-    code = [r for r in rels if r.suffix in CODE and not re.search(r"(^|/)tests?/|test_|\.test\.|_test\.", r.as_posix())]
-    tests = [r for r in rels if re.search(r"(^|/)tests?/|test_|\.test\.|_test\.", r.as_posix())]
+    code = [r for r in rels if r.suffix in CODE and not TEST_FILE.search(r.as_posix())]
+    tests = [r for r in rels if TEST_FILE.search(r.as_posix())]
     checks = [r for r in rels if re.search(r"verify|check|validat|검증", r.name, re.I) and r not in tests]
     docs = [r for r in rels if r.suffix.lower() == ".md"]
     docker = [r for r in rels if r.name.lower().startswith(("dockerfile", "compose", "docker-compose"))]
