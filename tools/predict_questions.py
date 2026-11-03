@@ -6,7 +6,7 @@
   python3 predict_questions.py [과제 폴더]      (기본: 현재 폴더)
 출력 끝의 「출제 범위 경고」는 내가 설명하기 어려운 파일이 제출물에 섞였는지 알려 준다.
 「과장 단정어 경고」는 문서(.md)의 '최적·항상·보장' 같은 말을 찾는다 — 근거 없는 단정은 그대로 질문이 된다.
-「집중 질문」은 출제 AI가 한 주제에 몰려 여러 번 묻는 경우를 대비한다. 「Answers.md 점검」은 제출 루트의 예상 질문·답 파일(⑥)을 본다.
+「집중 질문」은 출제 AI가 한 주제에 몰려 여러 번 묻는 경우를 대비한다. 「Answers.md 점검」은 제출 루트의 질문·답 파일(⑥)을 본다.
 종료 코드: 0 · 2 (제출 파일을 하나도 못 찾음)
 """
 import re
@@ -173,14 +173,19 @@ def main(argv):
     if not answers:
         print("- 없음 → ⑥에서 제출 루트에 `templates/Answers.md` 틀로 만든다(README가 추가 문서를 막으면 요구 문서의 한 절로)")
     else:
-        lines = read(root / answers).splitlines()
-        guide = sum(1 for l in lines if l.lstrip().startswith(">"))
-        blank = sum(1 for l in lines if re.fullmatch(r"\s*-\s*(답|근거)\s*:\s*(\(.*\))?\s*", l))  # 괄호 안내만 있으면 빈칸
+        text = read(root / answers)
+        guide = sum(1 for l in text.splitlines() if l.lstrip().startswith(">"))
+        # 번호 질문(## 1.) 아래에 괄호 안내만 있거나 아무것도 없으면 빈 답
+        blank = sum(1 for s in re.split(r"(?m)^#{2,3}\s+\d+\.", text)[1:]
+                    if not any(l.strip() and not re.fullmatch(r"\(.*\)", l.strip()) for l in s.splitlines()[1:]))
+        empty_cells = len(re.findall(r"(?m)^\|[^|\n]*[^|\s-][^|\n]*\|\s*\|\s*$", text))
         if guide:
             print(f"- 틀 안내 줄(>) {guide}개가 남아 있다 → 지운다(출제 AI가 읽는다)")
         if blank:
-            print(f"- 비어 있는 답·근거 {blank}칸 → 채우거나 그 질문을 지운다")
-        if not guide and not blank:
+            print(f"- 비어 있는 답 {blank}개 → 채우거나 그 질문을 지운다")
+        if empty_cells:
+            print(f"- 「핵심 결정 집중」 빈 칸 {empty_cells}개 → 채운다")
+        if not guide and not blank and not empty_cells:
             print(f"- `{answers.as_posix()}` 준비됨 — 사람이 전부 읽었는지 확인")
     print()
 

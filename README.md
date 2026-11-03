@@ -53,7 +53,7 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥대비(외울 것 · 모의 확인 문제) |
 | `knowledge/` | 주제별 지식 — 최적화, 서비스 구조(책임 분리·동시 수정·비동기·운영 전 점검), 보안(인증·권한·격리), 승인·결재, 날짜·시간, 금액, 자료 품질, 예약·재고, API, 화면, 외부 연동, AI 기능 (물을 것·함정·구현 요령·검사 사례) |
 | `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
-| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), README가 문서를 요구하지 않을 때만 쓰는 `DECISIONS.md`, 별도 요구 시 쓰는 `AI_COLLABORATION.md`, 확인문제 노트, 제출 루트에 두는 예상 질문·답 `Answers.md`, 요구사항·검증 틀 |
+| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), README가 문서를 요구하지 않을 때만 쓰는 `DECISIONS.md`, 별도 요구 시 쓰는 `AI_COLLABORATION.md`, 확인문제 노트, 제출 루트에 두는 질문·답 `Answers.md`, 요구사항·검증 틀 |
 | `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 8가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능, 최적화·배정·경로 |
 | `practice/` · `playbooks/rehearsal.md` | 연습 과제 2개(자료·담당자 역할 카드·예상 질문)와 시험 전 키트 행동 점검 시나리오 9장 |
 | `playbooks/parallel.md` | 선택 절차 — 계약 확정 뒤 읽기 전용 검증 탭 하나가 꼭 필요할 때만 |
