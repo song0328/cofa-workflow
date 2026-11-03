@@ -13,4 +13,4 @@
 | `workspace.discarded`·`runtime-limit`·종료 코드 124 | 직전 변경·검사 출력은 **저장된 결과가 아니다**. 현재 파일을 다시 읽어 구현 표식이 있는지 확인 → 파일 하나/불변식 하나만 수정 → 저장된 파일 재확인 → 검사 후 멈춤. 그 실행에는 문서·노트·커밋을 섞지 않는다 |
 | Git 저장소가 아니거나 `index.lock` 쓰기 실패 | `git init`·커밋 재시도 금지. Git을 생략하고 작은 저장 단위와 검사 출력으로 진행(`playbooks/git.md`) |
 | 대화가 너무 길어졌다 | 새 대화 → "AGENTS.md를 읽고 요건표 상태와 다음 단계만" |
-| 시간이 부족하다 | `prompts/3-step.md`의 120분 점검 → 선택조건 버림 → `prompts/4-check.md` |
+| 시간이 부족하다 | `prompts/3-step.md`의 120분 점검 → (README가 표시한) 선택조건 버림, 없으면 가장 단순한 방식으로 → `prompts/4-check.md` |
