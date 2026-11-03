@@ -78,6 +78,21 @@ class PredictQuestionsTest(unittest.TestCase):
             _, out = run(d)
             self.assertNotIn('과장 단정어 경고', out)
 
+    def test_data_error_ownership(self):
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t)
+            (d/'main.py').write_text('print(1)\n', encoding='utf-8')
+            (d/'HOW_TO_USE.md').write_text('틀린 행은 오류 목록에 남긴다.\n', encoding='utf-8')
+            _, out = run(d)
+            part = out.split('## 4.')[1].split('## 5.')[0]
+            self.assertIn('누가 발견하고, 누가 고치고, 누가 승인하고', part)
+            self.assertIn('제출 문서에 없는 것: 데이터 소유자, 수정 승인, 복구 주체)', part)
+            self.assertNotIn('오류 격리', part)
+            (d/'HOW_TO_USE.md').write_text('원자료 정정은 인사팀(데이터 소유자)이, 확정 결과 변경은 팀장이 승인한다.\n'
+                                           '틀린 행은 원문·사유와 함께 격리하고, 운영자가 정정본으로 재처리한다.\n', encoding='utf-8')
+            _, out = run(d)
+            self.assertNotIn('누가 발견하고, 누가 고치고', out)
+
     def test_missing_material_and_empty(self):
         with tempfile.TemporaryDirectory() as t:
             d = Path(t)

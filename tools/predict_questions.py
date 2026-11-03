@@ -27,6 +27,13 @@ SIGNS = {
 # 근거 없이 쓰면 "정말 그런가?" 질문이 되는 단정어. 숫자 앞뒤는 다른 숫자의 일부가 아닐 때만(10건·1100%는 제외).
 OVERCLAIM = re.compile(r"최적|모든|항상|완벽|보장|실시간|안전|검증됨|(?<![\d.])100\s?%|(?<![\d.])0\s?건|절대|무조건"
                        r"|\b(?:optimal|always|guarantee[sd]?)\b", re.I)
+# 자료 오류의 책임 경계 — 제출 문서에 빠진 것이 있으면 "누가 발견·수정·승인·복구하나" 질문을 낸다.
+OWNERSHIP = {
+    "데이터 소유자": r"소유자|소유권|\bowners?\b|데이터 담당",
+    "수정 승인": r"승인|\bapprov",
+    "오류 격리": r"격리|quarantin|오류 목록|제외 목록|\breject",
+    "복구 주체": r"복구|재처리|롤백|되돌리|\brecover|\brollback|\breprocess",
+}
 HEDGED = re.compile(r"않|아니(?:다|며|고|라)|\bnot\b|n't\b|cannot", re.I)  # 부정·한계 문장은 정직한 표현이라 뺀다
 
 
@@ -121,6 +128,10 @@ def main(argv):
         q[3].append(f"`{r.as_posix()}`는 무엇을 보장하고 무엇은 보장하지 못하나?")
     q[4].append("계산·저장 중 오류가 나면 코드상 어떻게 되나? 이전 결과는 어떻게 되나?")
     q[4].append("다른 운영자가 동시에 수정하거나 같은 요청이 두 번 오면?" + ("" if has["동시성"] else " (지금 구현에 대책이 없다면 운영 전에 무엇을 넣나?)"))
+    unowned = [k for k, v in OWNERSHIP.items() if not re.search(v, doc_blob, re.I)]
+    if unowned:
+        q[4].append("자료가 틀리면 누가 발견하고, 누가 고치고, 누가 승인하고, 어떤 증거로 복구하나? 그동안 확정 결과는 어떻게 되나?"
+                    f" (제출 문서에 없는 것: {', '.join(unowned)})")
     if docker:
         q[4].append(f"`{docker[0].as_posix()}`로 운영 환경에 올린다면 운영 전에 무엇을 더 해야 하나?")
     q[5].append("데이터가 10배가 되거나 조건이 바뀌면 어디가 먼저 문제가 되고, 결과를 믿기 전에 무엇을 추가로 검증하나?")

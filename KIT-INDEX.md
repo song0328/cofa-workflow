@@ -31,7 +31,7 @@
 | 과제 유형 판별(서비스·기존 코드·사내 시스템·데이터 보고·규정·자동화·AI 기능) | `playbooks/task-types.md` → 유형 파일 하나 |
 | 주제 지식(날짜·금액·예약·API·화면·외부 연동·AI·자료 품질) | `knowledge/README.md` 표 → 파일 1~2개의 "담당자에게 물을 것"·"흔한 함정" |
 | 로그인·역할·데이터 격리 | `knowledge/security.md`의 PRD 근거 → 보안 SSOT → 구현 계획 → 검사 · 틀 `recipes/python_auth.py` |
-| 구조·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
+| 구조·동기/비동기·동시 수정·실패 시 보존·운영 전 점검·자료 오류 책임 | `knowledge/service-architecture.md` · 오류 책임은 `knowledge/data-quality.md` "소유권과 오류 대응" |
 | 담당자 질문 더(여럿·예·리뷰어로 쓰기·2차 왕복) | `playbooks/stakeholder.md` |
 | AI가 혼자 정하면 안 되는 지점 · A/B를 다른 세션에 물을 때 | `playbooks/decision-gates.md` |
 | 자료끼리 다름·단서 조항·경계값 | `playbooks/traps.md` |
