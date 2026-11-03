@@ -4,7 +4,7 @@
 1. 명령 한 번: `pwd; date; ls -ld /tmp; ls; git status -s | head; sed -n '1,12p' AGENTS.md`
 2. **AGENTS.md에 「0. 상시 규칙」이 있나?** Codex는 지침을 세션 시작 때 읽는다.
    - 있음(사람이 codex 전에 `kit_setup.py`를 돌림) → 그대로 진행.
-   - 없음 → 사람에게: `"새 터미널 탭에서 python3 /tmp/kit/tools/kit_setup.py 실행 → 여기서 /new → /tmp/kit/KIT-INDEX.md 읽고 이어서."`
+   - 없음 → 사람에게: `"새 터미널 탭에서 python3 /tmp/kit/setup.py 실행 → 여기서 /new → /tmp/kit/KIT-INDEX.md 읽고 이어서."`
    - 과제가 준 AGENTS.md·`AGENTS.override.md`가 있으면 원문을 지우지 않는다. override가 있으면 사람에게 알린다.
 3. 키트는 먼저 `/tmp/kit`에 두고 사람에게 **File → Add Folder to Workspace → `/tmp/kit`**을 안내한다. 안 되면 `Open File`·`Ctrl+P`·`code -r /tmp/kit/<파일>`을 안내한다. 그래도 직접 보기 어렵다고 할 때만 제출 루트의 `./kit`을 쓰고 「제출 전 이동/삭제할 로컬 키트」라고 진행 줄에 표시한다.
 4. 과제 README를 찾는다(키트·홈 숨김 폴더 제외). 언어별 README가 여럿이면 다 본다.

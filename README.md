@@ -8,7 +8,7 @@ AI 코딩 에이전트(Codex 등)와 함께 **README로 주어지는 3시간짜�
 
 ```bash
 git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
-python3 /tmp/kit/tools/kit_setup.py      # 과제 폴더(시험: 홈 ~)에서, codex를 켜기 전에
+python3 /tmp/kit/setup.py                # 과제 폴더(시험: 홈 ~)에서, codex를 켜기 전에
 ```
 
 `kit_setup.py`는 과제 폴더에 `AGENTS.md` 상시 규칙을 깔고(과제가 준 지침은 보존), 노트·작업 폴더를 키트 안에 만들고, 환경(파이썬·라이브러리·Docker·디스크)을 한 번에 보여 줍니다. **Codex는 AGENTS.md를 세션을 시작할 때 읽기 때문에** codex를 켜기 전에 실행합니다. 깜빡하고 세션 중에 만들었다면 `/new`로 새 세션을 열고 이어서 하면 됩니다.
@@ -62,7 +62,7 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
-| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(선택: 읽기 전용 검증 카드) · `kit_setup.py`(codex 전 상시 규칙 깔기) · `evidence.py`(검사 증거·오래된 증거) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
+| `setup.py` · `tools/` | `setup.py`(codex 전 설정) · `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(선택: 읽기 전용 검증 카드) · `evidence.py`(검사 증거·오래된 증거) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
 | `skills/` | `verify-small-delivery`, `review-local-security` — 설치 없이 읽어서 사용 |
 
 ## 개발 확인

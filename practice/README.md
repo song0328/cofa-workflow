@@ -17,7 +17,7 @@ T=training-seats           # 또는 inspection-crew
 mkdir -p ~/rehearsal/$T && cd ~/rehearsal/$T
 cp $K/practice/$T/README.md . && cp -r $K/practice/$T/data .
 git init -q && git add README.md data && git commit -qm "과제 원본"
-python3 $K/tools/kit_setup.py      # codex를 켜기 전에(상시 규칙·노트·환경 점검)
+python3 $K/setup.py                # codex를 켜기 전에(상시 규칙·노트·환경 점검)
 ```
 Windows PowerShell이면(키트를 예: 홈에 받은 경우):
 ```powershell
@@ -25,7 +25,7 @@ git clone --depth 1 https://github.com/song0328/cofa-workflow.git $HOME/cofa-wor
 $K="$HOME/cofa-workflow"; $T="training-seats"
 mkdir $HOME/rehearsal/$T; cd $HOME/rehearsal/$T; cp $K/practice/$T/README.md .; cp -r $K/practice/$T/data .
 git init -q; git add README.md data; git commit -qm "과제 원본"
-python $K/tools/kit_setup.py       # Windows는 python3 대신 python일 수 있다
+python $K/setup.py                 # Windows는 python3 대신 python일 수 있다
 ```
 `kit_setup.py`는 키트가 `/tmp/kit`가 아니면 AGENTS.md 속 경로를 실제 키트 경로로 바꿔 넣고, 다음에 칠 줄을 그 경로로 알려 준다. 연습실 폴더는 키트 폴더 **밖**이어야 한다(안이면 거절).
 자료가 깨졌으면 키트 쪽에서 `python3 make_data.py`로 다시 만든다(같은 결과).

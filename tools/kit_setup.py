@@ -2,8 +2,8 @@
 Codex는 지침(AGENTS.md)을 **세션을 시작할 때** 읽는다. 세션 도중 만든 AGENTS.md는 그 세션에 자동으로 들어가지 않는다.
 그래서 키트 규칙을 미리 깔아 두고 나서 `codex`를 켠다.
 
-  python3 /tmp/kit/tools/kit_setup.py            # 과제 폴더 = 현재 폴더(시험: 홈 ~)
-  python3 /tmp/kit/tools/kit_setup.py --dir <과제 폴더>
+  python3 /tmp/kit/setup.py                      # 과제 폴더 = 현재 폴더(시험: 홈 ~)
+  python3 /tmp/kit/setup.py --dir <과제 폴더>
 
 하는 일 (과제 원본은 지우거나 바꾸지 않는다)
 1. 과제 폴더 AGENTS.md: 없으면 키트 틀로 만든다. 과제가 준 AGENTS.md가 있으면 원문을 그대로 두고 맨 위에 「0. 상시 규칙」만 덧붙인다. 이미 있으면 아무것도 안 한다.

@@ -54,7 +54,7 @@
 ## 도구 (필요할 때만 · 출력을 그대로 보인다)
 | 명령 | 쓰임 |
 |---|---|
-| `python3 <키트>/tools/kit_setup.py` (codex 켜기 전, 과제 폴더에서) | 상시 규칙 깔기·노트·환경 점검 |
+| `python3 <키트>/setup.py` (codex 켜기 전, 과제 폴더에서) | 상시 규칙 깔기·노트·환경 점검 |
 | `python3 <키트>/tools/kit_read.py <파일> ["절"]` | 키트 문서의 목차·절만 읽기 |
 | `python3 <키트>/tools/evidence.py check --name <이름> -- <명령>` · `link` · `handoff` | 검사 증거 기록·오래된 증거 표시·요건별 통과 확인 |
 | `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단(형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 불일치), 두 판의 차이 |
