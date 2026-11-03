@@ -107,7 +107,7 @@ class PredictQuestionsTest(unittest.TestCase):
             (d/'Answers.md').write_text((ROOT/'templates'/'Answers.md').read_text(encoding='utf-8'), encoding='utf-8')
             _, out = run(d)
             part = out.split('## Answers.md 점검')[1]
-            self.assertIn('틀 안내 줄(>) 5개', part)
+            self.assertIn('틀 안내 줄(>) 6개', part)
             self.assertIn('비어 있는 답 8개', part)
             self.assertIn('「핵심 결정 집중」 빈 칸 6개', part)
             self.assertNotIn('따로 생긴 문서: `Answers.md`', out)   # 출제 범위 경고 대상 아님
@@ -118,6 +118,15 @@ class PredictQuestionsTest(unittest.TestCase):
                                         '## 1. 핵심 로직은?\n정원을 넘으면 대기로 보낸다.\n\n## 2. 장애는?\n업로드가 먼저다.\n', encoding='utf-8')
             _, out = run(d)
             self.assertIn('`Answers.md` 준비됨', out)
+            # 가상 예시는 안내 줄(>)만 빼면 그대로 통과하고 과장 단정어도 없어야 한다(따라 쓰는 본보기).
+            example = (ROOT/'templates'/'Answers-example.md').read_text(encoding='utf-8')
+            (d/'Answers.md').write_text('\n'.join(l for l in example.splitlines() if not l.startswith('>')), encoding='utf-8')
+            _, out = run(d)
+            self.assertIn('`Answers.md` 준비됨', out)
+            self.assertNotIn('Answers.md:', out)
+            self.assertEqual(example.count('\n## ') - 2, 8)             # 한눈에·핵심 결정 집중 + 번호 질문 8개
+            self.assertNotIn('근거:', example)
+            self.assertNotIn('Q1', example)
 
     def test_missing_material_and_empty(self):
         with tempfile.TemporaryDirectory() as t:
