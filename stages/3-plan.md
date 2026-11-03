@@ -16,7 +16,7 @@
 ## 조건이 맞으면 더 읽기
 | 조건 | 읽을 것 |
 |---|---|
-| 역할·로그인 | `knowledge/security.md` "구현 요령" |
+| 역할·로그인·개인정보 | `knowledge/security.md` 전체 |
 | 오래 걸리는 계산·동시 수정·실패 시 보존 | `knowledge/service-architecture.md` "모놀리스·동기" · "동시 수정" |
 | 범위가 커 보임 | `playbooks/scope.md` |
 | Docker 요구 | `recipes/docker/README.md` "고칠 곳" |

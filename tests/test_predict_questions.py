@@ -42,6 +42,8 @@ class PredictQuestionsTest(unittest.TestCase):
         self.assertIn('`app/planner.py`', out)
         self.assertIn('`verify_plan.py`는 무엇을 보장', out)
         self.assertIn('사용자·운영자·담당자 중 실제 역할', out)
+        self.assertIn('어떤 보안 요구를 SSOT 권한표로 옮겼고', out)
+        self.assertIn('화면에서 숨긴 것과 실제 서버 권한 검사', out)
         self.assertIn('`Dockerfile`', out)
         self.assertIn('계산을 작업 큐로 비동기 처리한 이유는?', out)   # 비동기 없음 → 틀린 전제
         self.assertIn('`NOTES_FROM_AGENT.md`', out)                 # 출제 범위 경고

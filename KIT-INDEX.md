@@ -30,7 +30,7 @@
 | 계산·배정·경로·일정·"최적" | `playbooks/types/optimization.md` · 지식 `knowledge/optimization.md` · 틀 `recipes/opt_heuristics.py` |
 | 과제 유형 판별(서비스·기존 코드·사내 시스템·데이터 보고·규정·자동화·AI 기능) | `playbooks/task-types.md` → 유형 파일 하나 |
 | 주제 지식(날짜·금액·예약·API·화면·외부 연동·AI·자료 품질) | `knowledge/README.md` 표 → 파일 1~2개의 "담당자에게 물을 것"·"흔한 함정" |
-| 로그인·역할·데이터 격리 | `knowledge/security.md` · 틀 `recipes/python_auth.py` |
+| 로그인·역할·데이터 격리 | `knowledge/security.md`의 PRD 근거 → 보안 SSOT → 구현 계획 → 검사 · 틀 `recipes/python_auth.py` |
 | 구조·동기/비동기·동시 수정·실패 시 보존·운영 전 점검 | `knowledge/service-architecture.md` |
 | 담당자 질문 더(여럿·예·리뷰어로 쓰기·2차 왕복) | `playbooks/stakeholder.md` |
 | AI가 혼자 정하면 안 되는 지점 | `playbooks/decision-gates.md` |

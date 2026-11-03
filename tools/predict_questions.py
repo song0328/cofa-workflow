@@ -110,8 +110,11 @@ def main(argv):
     q[2].append(f"입력이 들어와 결과가 화면에 보이기까지 거치는 모듈({names})의 책임과 데이터 흐름은?")
     if has["저장"]:
         q[2].append("계획·상태 데이터는 어디에 저장되고 누가 바꾸며 누가 읽나?")
-    if has["권한"]:
+    security_scope = has['권한'] or bool(re.search(r'권한|운영자|관리자|로그인|비밀번호|개인정보|\b(?:role|admin|operator|login|session|auth)\b', doc_blob, re.I))
+    if security_scope:
         q[2].append("사용자·운영자·담당자 중 실제 역할 하나의 입력이 어느 파일·함수에서 검증되고 어떤 상태를 바꾼 뒤 다음 역할의 화면에 보이나? 권한은 어디서 막나?")
+        q[2].append('README·담당자 답의 어떤 보안 요구를 SSOT 권한표로 옮겼고, 그 표의 한 행을 실제 어느 파일·함수/API가 강제하며 어떤 권한 밖 요청으로 확인했나?')
+        q[3].append('화면에서 숨긴 것과 실제 서버 권한 검사를 구분하면? 관리자 비밀번호·세션·다른 사용자 자료 접근 중 구현한 것, 가정한 것, 운영 전에 할 것은?')
     proof = ", ".join(f"`{r.as_posix()}`" for r in (tests + checks)[:4]) or "(검사 파일 없음)"
     q[3].append(f"실제로 구현·검증한 것과 가정으로 둔 것을 구분하면? 평가자가 확인할 경로는({proof})?")
     for r in (checks or tests)[:1]:
