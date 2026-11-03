@@ -2,8 +2,8 @@
 Codex는 지침(AGENTS.md)을 **세션을 시작할 때** 읽는다. 세션 도중 만든 AGENTS.md는 그 세션에 자동으로 들어가지 않는다.
 그래서 키트 규칙을 미리 깔아 두고 나서 `codex`를 켠다.
 
-  python3 /tmp/kit/setup.py                      # 과제 폴더 = 현재 폴더(시험: 홈 ~)
-  python3 /tmp/kit/setup.py --dir <과제 폴더>
+  python3 kit/setup.py                           # 과제 폴더 = 현재 폴더(시험: 홈 ~)
+  python3 kit/setup.py --dir <과제 폴더>
 
 하는 일 (과제 원본은 지우거나 바꾸지 않는다)
 1. 과제 폴더 AGENTS.md: 없으면 키트 틀로 만든다. 과제가 준 AGENTS.md가 있으면 원문을 그대로 두고 맨 위에 「0. 상시 규칙」만 덧붙인다. 이미 있으면 아무것도 안 한다.
@@ -40,8 +40,7 @@ def rules_block(template):
 
 
 def setup_agents(task, template):
-    if KIT.as_posix() != "/tmp/kit":                     # 연습 노트북 등 키트가 다른 곳이면 실제 경로로 바꿔 넣는다
-        template = template.replace("/tmp/kit", KIT.as_posix())
+    template = template.replace("<키트>", KIT.as_posix())
     target = task / "AGENTS.md"
     if target.exists():
         text = target.read_text(encoding="utf-8")
@@ -62,7 +61,7 @@ def main(argv=None):
         print(f"⚠ 과제 폴더({task})가 키트 안이다. 과제 폴더(시험: 홈 ~)에서 실행한다.")
         return 1
     if task in KIT.parents:
-        print(f"⚠ 키트({KIT})가 과제 폴더 안에 있다 — 제출물에 섞인다. 키트는 /tmp/kit에 받는다(연습실이면 제출 전 삭제).")
+        print(f"로컬 키트: {KIT} (왼쪽에서 열람 가능 · 제출 직전 `mv -- ./kit /tmp/kit`으로 이동)")
     template = (KIT / "templates" / "AGENTS.md").read_text(encoding="utf-8")
     lines = [setup_agents(task, template)]
     if (task / "AGENTS.override.md").exists():

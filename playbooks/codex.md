@@ -42,7 +42,7 @@
 - 연결이 끊겨도 원격 환경의 Codex는 계속 돈다는 후기가 많다. 다시 연결되면 화면을 새로고침한다. 중복 접속으로 한 번 더 튕길 수 있다.
 - 재접속 뒤 첫 말: `KIT-INDEX.md 읽고 이어서.` → AI는 AGENTS.md 진행 줄부터 읽는다.
 - 세션이 꺼졌으면 `codex resume`으로 이전 세션을 고르거나, 새 세션에서 위 첫 말.
-- `/tmp/kit`이 사라졌으면 키트를 다시 받는다(`README.md`의 받기 줄). 진행 상태는 과제 폴더의 AGENTS.md·DECISIONS.md에 있다.
+- `kit`이 사라졌으면 제출 폴더에서 다시 받는다(`README.md`의 받기 줄). 진행 상태는 과제 폴더의 AGENTS.md와 README 요구 문서에 있다.
 
 ## 대화가 길어질 때
 - 컨텍스트가 60%쯤 차거나 앞 결정을 잊기 시작하면: "AGENTS.md 진행 줄과 DECISIONS.md를 최신으로 고쳐" → `/new` → `KIT-INDEX.md 읽고 이어서.`

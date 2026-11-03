@@ -1,6 +1,6 @@
 """여러 Codex 탭에 일을 나눠 줄 때 쓰는 작업 카드·게시판 (python3 표준 라이브러리만).
 메인 탭이 카드를 만들면, 사람은 새 터미널 탭에서 `codex`를 켜고 **짧은 한 줄만** 친다(붙여넣기 불필요).
-작업 카드·결과는 키트의 work/ 폴더(시험: /tmp/kit/work — 제출 폴더 밖)에 둔다. 규칙: playbooks/parallel.md
+작업 카드·결과는 키트의 work/ 폴더에 두고 제출 직전 키트와 함께 옮긴다. 규칙: playbooks/parallel.md
 
   python3 tab_task.py new T2 --role 탐구 --goal "정원 제약 배정 방법 2가지 비교" --read README.md,data/ --done "비교표와 추천"
   python3 tab_task.py new T3 --role 작업 --goal "화면 지도 표시" --read DECISIONS.md --own web/map.js,web/index.html --done "ui_sim으로 표 읽힘"

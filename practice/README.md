@@ -12,7 +12,7 @@
 ## 1. 준비 (5분)
 과제 README와 `data/`만 **연습실**(시험의 홈 대신)로 복사한다. 키트 폴더 안에서 Codex를 켜지 않는다(담당자 카드가 보인다).
 ```bash
-K=/tmp/kit                 # 키트를 받은 곳 (git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit)
+K=kit                      # 연습 제출 폴더에서 받은 곳 (git clone --depth 1 https://github.com/song0328/cofa-workflow.git kit)
 T=training-seats           # 또는 inspection-crew
 mkdir -p ~/rehearsal/$T && cd ~/rehearsal/$T
 cp $K/practice/$T/README.md . && cp -r $K/practice/$T/data .
@@ -27,7 +27,7 @@ mkdir $HOME/rehearsal/$T; cd $HOME/rehearsal/$T; cp $K/practice/$T/README.md .; 
 git init -q; git add README.md data; git commit -qm "과제 원본"
 python $K/setup.py                 # Windows는 python3 대신 python일 수 있다
 ```
-`kit_setup.py`는 키트가 `/tmp/kit`가 아니면 AGENTS.md 속 경로를 실제 키트 경로로 바꿔 넣고, 다음에 칠 줄을 그 경로로 알려 준다. 연습실 폴더는 키트 폴더 **밖**이어야 한다(안이면 거절).
+`setup.py`는 AGENTS.md 속 키트 경로를 실제 위치로 바꾸고 다음에 칠 줄을 알려 준다. 키트 안에서 실행하면 거절하며, 제출 전에는 아래 5단계대로 `kit`을 옮긴다.
 자료가 깨졌으면 키트 쪽에서 `python3 make_data.py`로 다시 만든다(같은 결과).
 
 ## 2. 담당자 AI 준비 (2분)
@@ -36,7 +36,7 @@ python $K/setup.py                 # Windows는 python3 대신 python일 수 있
 - 시험처럼: 담당자에게 보내는 말은 **사람이 직접 복사**하고(1000자 이하, 물음표 하나), 받은 답은 메인에 `답: …`으로 붙인다.
 
 ## 3. 시작과 시간 (90분 압축 또는 180분 실전)
-메인 Codex를 연습실에서 켜고 `kit_setup.py`가 마지막 줄에 알려 준 한 줄(예: `/tmp/kit/KIT-INDEX.md 읽고 시작해.`)을 친다. 타이머를 켠다.
+메인 Codex를 연습실에서 켜고 `setup.py`가 마지막 줄에 알려 준 한 줄(예: `kit/KIT-INDEX.md 읽고 시작해.`)을 친다. 타이머를 켠다.
 
 | 단계 | 90분 압축 | 180분 실전 |
 |---|---|---|
@@ -50,7 +50,7 @@ python $K/setup.py                 # Windows는 python3 대신 python일 수 있
 추천(11/3): 오전에 `training-seats` 90분 압축 → 채점·고칠 점 정리 → 오후에 `inspection-crew` 180분 실전. **같은 과제를 두 번 하지 않는다**(함정을 알고 나면 연습 가치가 줄어든다).
 
 ## 4. 끝난 뒤 (30분)
-1. 연습실에서 `python3 /tmp/kit/tools/predict_questions.py .` → 「출제 범위 경고」·「재료 부족」 확인.
+1. 연습실에서 `python3 kit/tools/predict_questions.py .` → 「출제 범위 경고」·「재료 부족」 확인.
 2. 메인에 `모의 확인 문제 해줘` → 한 문항씩 답한다(전제 틀린 문항 포함).
 3. AI를 닫고 `QUESTIONS.md` 8문항 중 4문항 이상을 5분 타이머로 손으로 쓴다.
 4. `FACILITATOR.md` 끝 「채점 참고」로 놓친 함정을 세고, 아래 채점표를 채운다.

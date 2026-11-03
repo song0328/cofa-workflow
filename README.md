@@ -7,8 +7,8 @@ AI 코딩 에이전트(Codex 등)와 함께 **README로 주어지는 3시간짜�
 ## 쓰는 법
 
 ```bash
-git clone --depth 1 https://github.com/song0328/cofa-workflow.git /tmp/kit
-python3 /tmp/kit/setup.py                # 과제 폴더(시험: 홈 ~)에서, codex를 켜기 전에
+git clone --depth 1 https://github.com/song0328/cofa-workflow.git kit
+python3 kit/setup.py                     # 과제 폴더(시험: 홈 ~)에서, codex를 켜기 전에
 ```
 
 `kit_setup.py`는 과제 폴더에 `AGENTS.md` 상시 규칙을 깔고(과제가 준 지침은 보존), 노트·작업 폴더를 키트 안에 만들고, 환경(파이썬·라이브러리·Docker·디스크)을 한 번에 보여 줍니다. **Codex는 AGENTS.md를 세션을 시작할 때 읽기 때문에** codex를 켜기 전에 실행합니다. 깜빡하고 세션 중에 만들었다면 `/new`로 새 세션을 열고 이어서 하면 됩니다.
@@ -16,19 +16,19 @@ python3 /tmp/kit/setup.py                # 과제 폴더(시험: 홈 ~)에서, c
 그다음 `codex`를 켜고 AI에게 한 줄만:
 
 ```text
-/tmp/kit/KIT-INDEX.md 읽고 시작해.
+kit/KIT-INDEX.md 읽고 시작해.
 ```
 
 AI가 진행자가 되어 매 답 끝에 `── 다음 ──` 칸(지금 단계 · 사람이 할 일 · 나에게 보낼 말)을 붙입니다. 사용자는 `다음`, `A`/`B`, `답: (담당자 답)`, `막혔어`, `n분 남았어`, `노트 보여 줘`, `모의 확인 문제 해줘`만 보내면 됩니다.
 
-**토큰을 아끼는 구조**: AI는 목차(`KIT-INDEX.md`)와 **지금 단계 카드 하나**(`stages/`)만 읽고, 더 필요하면 `tools/kit_read.py`로 문서의 **절 하나만** 읽습니다. 세션 시작 때 읽혀 매 요청 맥락에 실리는 과제 `AGENTS.md`의 상시 규칙은 짧게 유지합니다. 카드마다 「놓치면 안 되는 것」과 조건부로 더 읽을 절이 있어, 한 파일만 보다가 중요한 것을 놓치지 않게 했습니다. `tests/test_kit_structure.py`가 크기 상한과 카드가 가리키는 파일·절이 실제로 있는지 검사합니다. 대화가 끊기면 `/tmp/kit/KIT-INDEX.md 읽고 이어서.`
+**토큰을 아끼는 구조**: AI는 목차(`KIT-INDEX.md`)와 **지금 단계 카드 하나**(`stages/`)만 읽고, 더 필요하면 `tools/kit_read.py`로 문서의 **절 하나만** 읽습니다. 세션 시작 때 읽혀 매 요청 맥락에 실리는 과제 `AGENTS.md`의 상시 규칙은 짧게 유지합니다. 카드마다 「놓치면 안 되는 것」과 조건부로 더 읽을 절이 있어, 한 파일만 보다가 중요한 것을 놓치지 않게 했습니다. `tests/test_kit_structure.py`가 크기 상한과 카드가 가리키는 파일·절이 실제로 있는지 검사합니다. 대화가 끊기면 `kit/KIT-INDEX.md 읽고 이어서.`
 
 **키트를 못 받았을 때**(clone 실패): 오타만 확인해 한 번 더 → git만 막힌 경우를 위해 압축 파일로 받기:
 
 ```bash
-curl -sL https://github.com/song0328/cofa-workflow/archive/main.tar.gz | tar xz -C /tmp && mv /tmp/cofa-workflow-main /tmp/kit
+curl -sL https://github.com/song0328/cofa-workflow/archive/main.tar.gz | tar xz && mv cofa-workflow-main kit
 # curl도 없으면
-python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('https://github.com/song0328/cofa-workflow/archive/main.tar.gz'),mode='r|gz').extractall('/tmp')" && mv /tmp/cofa-workflow-main /tmp/kit
+python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('https://github.com/song0328/cofa-workflow/archive/main.tar.gz'),mode='r|gz').extractall('.')" && mv cofa-workflow-main kit
 ```
 
 그래도 안 되면(인터넷 자체가 막힘) 키트 없이 같은 순서로 진행한다. AI에게 `코드 고치지 말고 README 분석만 해. 요건표·함정·담당자 질문·가정으로.` → 질문은 한 번에 하나 → 사양 → 한 단계씩 구현·검사 → 요건 대조 → 보고서 → 결정 요약.
@@ -37,12 +37,12 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 
 | 단계 | 사용자가 칠 문장 |
 |---|---|
-| ① 분석 | `/tmp/kit/prompts/1-analyze.md 대로 분석만 해.` |
-| ② 사양 | `/tmp/kit/prompts/2-spec.md 대로 해. 아래는 내가 담당자에게 확인한 사실이야.` |
+| ① 분석 | `kit/prompts/1-analyze.md 대로 분석만 해.` |
+| ② 사양 | `kit/prompts/2-spec.md 대로 해. 아래는 내가 담당자에게 확인한 사실이야.` |
 | ③ 단계 | `AGENTS.md를 읽고 1단계만.` → `다음 단계만.` |
-| ④ 대조 | `/tmp/kit/prompts/4-check.md 대로 대조해.` |
-| ⑤ 보고 | `/tmp/kit/prompts/5-report.md 대로 <제출 파일명> 채워.` |
-| ⑥ 요약 | `/tmp/kit/prompts/6-summary.md 대로.` |
+| ④ 대조 | `kit/prompts/4-check.md 대로 대조해.` |
+| ⑤ 보고 | `kit/prompts/5-report.md 대로 <제출 파일명> 채워.` |
+| ⑥ 요약 | `kit/prompts/6-summary.md 대로.` |
 
 ## 구성
 

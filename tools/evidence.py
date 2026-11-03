@@ -1,5 +1,5 @@
 """검사 실행을 증거 번호(E1, E2…)로 남기고, 요구사항(R1…)과 이어 인계 전에 확인한다 (python3 표준 라이브러리만).
-기록은 키트의 work/evidence.jsonl(시험: /tmp/kit/work — 제출 폴더 밖)에만 쓴다. 과제 폴더에는 아무것도 쓰지 않는다.
+기록은 키트의 work/evidence.jsonl에만 쓰고, 제출 직전 키트와 함께 옮긴다. 과제 코드·문서에는 쓰지 않는다.
 
   python3 evidence.py check --name unit --root ~/task --track app,tests -- python3 -m unittest discover -s tests
   python3 evidence.py link R1 E3          # 요구사항 R1의 근거는 E3

@@ -25,6 +25,8 @@ class KitSetupTest(unittest.TestCase):
             text = (Path(d)/'AGENTS.md').read_text(encoding='utf-8')
             self.assertIn('## 0. 상시 규칙', text)
             self.assertIn('## 1. 요건표', text)
+            self.assertIn(ROOT.as_posix(), text)
+            self.assertNotIn('<키트>', text)
             self.assertIn('codex', out)
             run('--dir', d)
             self.assertEqual((Path(d)/'AGENTS.md').read_text(encoding='utf-8'), text)   # 두 번 돌려도 그대로

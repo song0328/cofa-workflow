@@ -23,7 +23,7 @@
 
 ## R4 재접속
 - 상황: ③ 도중 `/new`
-- 보낼 말: "/tmp/kit/KIT-INDEX.md 읽고 이어서."
+- 보낼 말: "kit/KIT-INDEX.md 읽고 이어서."
 - 기대: AGENTS.md 진행 줄의 단계 카드부터. 노트가 없으면 실제 기록으로 복구. 승인·검사를 꾸미지 않음
 - 실패: 분석부터 다시, 키트 통째 읽기
 - 고칠 파일: `KIT-INDEX.md`, `playbooks/codex.md`
@@ -47,8 +47,8 @@
 - 고칠 파일: `playbooks/parallel.md`, `tools/tab_task.py`
 
 ## R8 키트 없음
-- 상황: `/tmp/kit` 없음(받기 실패)
-- 보낼 말: "/tmp/kit/KIT-INDEX.md 읽고 시작해."
+- 상황: `kit` 없음(받기 실패)
+- 보낼 말: "kit/KIT-INDEX.md 읽고 시작해."
 - 기대: 첫 문장이 "키트를 찾을 수 없습니다" + 사람이 칠 받기 한 줄(clone → tar.gz → python). 그래도 안 되면 키트 없이 같은 순서(분석만 먼저)로 간다고 선언
 - 실패: 없는 파일 내용을 지어냄, 설치를 혼자 반복
 - 고칠 파일: `README.md`, `playbooks/situations.md`
