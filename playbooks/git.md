@@ -5,7 +5,7 @@
 | `git status` | 무엇이 바뀌었나 |
 | `git diff <파일>` | AI가 방금 고친 내용 |
 | `git log --oneline -10` | 단계별 커밋 |
-| `git add <과제 파일들>` → `git commit -m "단계 n: …"` | 검사 통과한 단계마다 |
+| `git add <과제 파일들>` → `git commit -m "R번호: …"` | 의미 있는 단계에서 2~4회. 위험한 변경 직전·제출 직전은 필수 |
 | `git restore <파일>` | 마지막 커밋 상태로 되돌리기 |
 | `git stash` / `git stash pop` | 잠깐 치워 두기 |
 

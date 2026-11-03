@@ -11,17 +11,17 @@
 - `읽고 이어서` → 과제 `AGENTS.md` 진행 줄의 단계 카드부터. 「0. 상시 규칙」이 없으면 `templates/AGENTS.md`에서 그 칸만 복구한다. `<키트>/notes/확인문제-노트.md`가 없으면 `templates/answer-notes.md`로 만들고 실제 기록에서 확인되는 사실만 채운다. 계획 승인·검사·담당자 답을 꾸며 만들지 않는다.
 - `/tmp/kit`이 사라졌으면 사람에게 키트를 다시 받게 한다(`README.md` 받기 줄).
 
-## 단계 카드 (3시간 기준 대략 시각 · 화면 타이머가 우선)
-| 단계 | 카드 | 시각 |
+## 단계 카드 (과제 타이머의 남은 시간이 우선)
+| 단계 | 카드 | 기준 |
 |---|---|---|
 | ⓪ 시작 | `stages/0-start.md` | 0~5분 |
 | ① 분석 · 자료 진단 · 예외 후보 | `stages/1-analyze.md` | ~25분 |
 | ①-질문 담당자 | `stages/2-ask.md` | ~40분(기다리며 다른 일) |
 | ② 사양·계획·구조 (최적화면 모델 계약·방법 수준·2차 왕복) | `stages/3-plan.md` | ~45분 |
-| ③ 구현 (첫 완주 ~90분 · 기능 동결 ~150분) | `stages/4-build.md` | ~150분 |
-| ④ 대조 · ⑤ 제출 문서 | `stages/5-check-report.md` | +15분 |
-| ⑥ 서술형 대비 · 모의 확인 문제 | `stages/6-prepare.md` | +15분 |
-| ⑦ 제출 (종료 −50분) | `stages/7-submit.md` | — |
+| ③ 구현 (첫 완주 뒤 필수 완성) | `stages/4-build.md` | 남은 시간 60분에 기능 동결 |
+| ④ 대조 · ⑤ 제출 문서 | `stages/5-check-report.md` | 남은 시간 45분부터 |
+| ⑥ 서술형 대비 · 무힌트 회상 · 모의 확인 문제 | `stages/6-prepare.md` | 제출 전 |
+| ⑦ 제출 | `stages/7-submit.md` | 남은 시간 15분에 시작 |
 
 ## 상황별 — 해당하면 이 절을 더 읽는다
 | 상황 | 파일 · 절 |
@@ -41,7 +41,7 @@
 | Codex가 같은 실수·코드를 망침 | `playbooks/recover.md` · `playbooks/git.md` |
 | 담당자 답 변경·설치 실패·데이터 깨짐 등 돌발 | `playbooks/situations.md` |
 | 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
-| 여러 탭에 독립 작업·아이디어를 동시에 맡기기 | `playbooks/parallel.md` |
+| 계약 확정 뒤 읽기 전용 검증 탭이 꼭 필요할 때(선택) | `playbooks/parallel.md` |
 | 시험 화면 동작·제출 흐름·환경 사실 | `playbooks/exam-screen.md` |
 | 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
 | 사람이 보낼 말 전체 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
@@ -59,7 +59,7 @@
 | `python3 <키트>/tools/evidence.py check --name <이름> -- <명령>` · `link` · `handoff` | 검사 증거 기록·오래된 증거 표시·요건별 통과 확인 |
 | `python3 <키트>/tools/data_profile.py <자료 폴더>` · `--compare 원본 변경본 --key 열1,열2` | 예외 후보 진단(형식·빈칸·범위·요일 분포·표기 변형·자정 넘김·키 불일치), 두 판의 차이 |
 | `python3 <키트>/tools/predict_questions.py <과제 폴더>` | 내 제출 파일로 서술형 예상 질문 6칸 + 전제 틀린 질문 + 출제 범위 경고 |
-| `python3 <키트>/tools/tab_task.py new T2 --role 탐구\|작업\|검증 --goal … --done …` · `status` · `done T2` | 보조 탭 작업 카드와 게시판(사람은 새 탭에 한 줄만 친다) |
+| `python3 <키트>/tools/tab_task.py new T2 --role 검증 --goal … --done …` · `status` · `done T2` | 선택형 읽기 전용 검증 카드와 게시판 |
 | `python3 <키트>/tools/csv_check.py 파일.csv --key 열 --number 열` | CSV 중복 키·빈칸·숫자 오류(값은 숨김) |
 | `python3 <키트>/tools/compare_json.py 기대.json 실제.json` | 기대 결과와 실제 결과 비교 |
 | `python3 <키트>/tools/security_check.py 경로` | 비밀 값 의심 위치(값은 숨김) |

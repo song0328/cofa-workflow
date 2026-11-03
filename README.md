@@ -53,16 +53,16 @@ python3 -c "import urllib.request as u,tarfile as t;t.open(fileobj=u.urlopen('ht
 | `prompts/` | ①분석 ②사양 ③단계(120분 점검) ④대조 ⑤보고 ⑥대비(외울 것 · 모의 확인 문제) |
 | `knowledge/` | 주제별 지식 — 최적화, 서비스 구조(책임 분리·동시 수정·비동기·운영 전 점검), 보안(인증·권한·격리), 승인·결재, 날짜·시간, 금액, 자료 품질, 예약·재고, API, 화면, 외부 연동, AI 기능 (물을 것·함정·구현 요령·검사 사례) |
 | `recipes/` | 패키지 없이 쓰는 서버·테스트·인증·휴리스틱 틀과 Docker 예시 (Node 22·Python 표준 기능, 실행 확인) |
-| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), 제출 문서 `DECISIONS.md`·`AI_COLLABORATION.md`, 확인문제 노트, 요구사항·검증 틀 |
+| `templates/` | `AGENTS.md`(요건표·확정 사양·가정·금지·규칙), README가 문서를 요구하지 않을 때만 쓰는 `DECISIONS.md`, 별도 요구 시 쓰는 `AI_COLLABORATION.md`, 확인문제 노트, 요구사항·검증 틀 |
 | `playbooks/task-types.md` + `playbooks/types/` | 과제 유형 8가지 — 새 서비스, 기존 코드 수정, 사내 업무 시스템(HR·결재·예약 등), 데이터 분석·보고, 규정 해석·판정, 자동화, AI 기능, 최적화·배정·경로 |
 | `practice/` · `playbooks/rehearsal.md` | 연습 과제 2개(자료·담당자 역할 카드·예상 질문)와 시험 전 키트 행동 점검 시나리오 9장 |
-| `playbooks/parallel.md` | 여러 Codex 탭 동시 운영 — 메인/탐구/작업/검증 역할, 작업 카드, 파일 소유, 합치는 법 |
+| `playbooks/parallel.md` | 선택 절차 — 계약 확정 뒤 읽기 전용 검증 탭 하나가 꼭 필요할 때만 |
 | `playbooks/lead-like-dev.md` · `dev-glossary.md` | 사람이 개발자처럼 이끄는 10가지 순간과 보낼 문장, 용어 30개(뜻·쓰는 문장) |
 | `playbooks/answer-cards.md` · `followup-prep.md` | 확인 문제 9가지 답 카드(4단계 뼈대·5분 쓰는 법), 작업 중 대비·이해 체크포인트·모의 확인 문제 |
 | `playbooks/exam-screen.md` · `codex.md` · `reminders.md` | 시험 화면 동작(저장·제출·환경 사실·시간표), Codex 운용(모델·승인·끊김·토큰), AI가 시점마다 건넬 한 줄 조언 |
 | `playbooks/decision-gates.md` · `situations.md` | AI가 멈추고 사람이 고를 지점, 돌발 상황 대응 |
 | `playbooks/` | 시작 5분, 담당자 질문법, 함정, 범위 조절, 검증, 환경, 복구, git, 웹·API, 자료 분석, 보안, 설명 정리, 평가 관점, 셸 명령 |
-| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(여러 탭 작업 카드·게시판) · `kit_setup.py`(codex 전 상시 규칙 깔기) · `evidence.py`(검사 증거·오래된 증거) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
+| `tools/` | `kit_read.py`(문서의 절만 읽기) · `data_profile.py`(예외 후보 진단) · `predict_questions.py`(내 제출물로 서술형 예상 질문) · `tab_task.py`(선택: 읽기 전용 검증 카드) · `kit_setup.py`(codex 전 상시 규칙 깔기) · `evidence.py`(검사 증거·오래된 증거) · `compare_json.py` · `csv_check.py` · `security_check.py` (python3 표준 라이브러리만) · `ui_sim.cjs`(Node, 화면 흉내) |
 | `skills/` | `verify-small-delivery`, `review-local-security` — 설치 없이 읽어서 사용 |
 
 ## 개발 확인

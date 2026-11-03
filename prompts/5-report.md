@@ -1,7 +1,7 @@
 # ⑤ 보고 — 제출 문서를 채운다
 
 1. **제출 파일 이름은 README의 제출물 안내에서 확인**한다. 사용자가 이름을 주면 그 파일만 쓴다. README 자체를 고치지 않는다.
-2. 틀은 `templates/DECISIONS.md`·`templates/AI_COLLABORATION.md`(작업 중에 쌓은 것을 다듬는다). README가 다른 보고서를 요구하면 `templates/report.md`를 그 이름으로. 짧게, 사실대로:
+2. **README가 요구한 문서가 먼저다.** 아래 내용을 그 문서 안에 넣는다. README가 아무 문서도 요구하지 않을 때만 `templates/DECISIONS.md`를 짧게 쓰고, `AI_COLLABORATION.md`는 따로 요구할 때만 쓴다. 짧게, 사실대로:
    - 확인한 것(담당자 확인 사실) / 내 가정
    - AI에 맡긴 것 / 사용자가 직접 검증한 입력과 결과
    - 뺀 기능과 이유 / 남은 위험·미검증
