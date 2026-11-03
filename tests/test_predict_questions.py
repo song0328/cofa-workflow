@@ -93,6 +93,27 @@ class PredictQuestionsTest(unittest.TestCase):
             _, out = run(d)
             self.assertNotIn('누가 발견하고, 누가 고치고', out)
 
+    def test_focus_and_answers_file(self):
+        with tempfile.TemporaryDirectory() as t:
+            d = Path(t)
+            (d/'main.py').write_text('print(1)\n', encoding='utf-8')
+            (d/'HOW_TO_USE.md').write_text('| # | 결정 |\n|---|---|\n| D1 | 정원 초과는 대기 명단으로 | 담당자 답 |\n', encoding='utf-8')
+            _, out = run(d)
+            self.assertIn('핵심 로직이 실제로 무엇을 하는지', out)
+            self.assertIn('서비스 장애는 어디서 가장 먼저', out.split('## 4.')[1].split('## 5.')[0])
+            focus = out.split('## 집중 질문')[1].split('## ')[0]
+            self.assertEqual(focus.count('D1「정원 초과는 대기 명단으로」:'), 6)
+            self.assertIn('- 없음 → ⑥에서 제출 루트에 `templates/Answers.md`', out)
+            (d/'Answers.md').write_text((ROOT/'templates'/'Answers.md').read_text(encoding='utf-8'), encoding='utf-8')
+            _, out = run(d)
+            part = out.split('## Answers.md 점검')[1]
+            self.assertIn('틀 안내 줄(>) 4개', part)
+            self.assertIn('비어 있는 답·근거 16칸', part)
+            self.assertNotIn('따로 생긴 문서: `Answers.md`', out)   # 출제 범위 경고 대상 아님
+            (d/'Answers.md').write_text('# Answers\n### Q1. 핵심 로직은?\n- 답: 정원을 넘으면 대기로 보낸다.\n- 근거: `main.py`\n', encoding='utf-8')
+            _, out = run(d)
+            self.assertIn('`Answers.md` 준비됨', out)
+
     def test_missing_material_and_empty(self):
         with tempfile.TemporaryDirectory() as t:
             d = Path(t)

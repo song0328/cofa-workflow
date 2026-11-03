@@ -6,6 +6,7 @@
   python3 predict_questions.py [과제 폴더]      (기본: 현재 폴더)
 출력 끝의 「출제 범위 경고」는 내가 설명하기 어려운 파일이 제출물에 섞였는지 알려 준다.
 「과장 단정어 경고」는 문서(.md)의 '최적·항상·보장' 같은 말을 찾는다 — 근거 없는 단정은 그대로 질문이 된다.
+「집중 질문」은 출제 AI가 한 주제에 몰려 여러 번 묻는 경우를 대비한다. 「Answers.md 점검」은 제출 루트의 예상 질문·답 파일(⑥)을 본다.
 종료 코드: 0 · 2 (제출 파일을 하나도 못 찾음)
 """
 import re
@@ -15,7 +16,9 @@ from pathlib import Path
 
 CODE = {".py", ".js", ".cjs", ".mjs", ".ts", ".tsx", ".jsx", ".html", ".go", ".java"}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", ".cache", ".codex", ".agents", "kit", "notes"}
-EXPECTED_DOCS = {"readme.md", "decisions.md", "ai_collaboration.md", "agents.md", "how_to_run.md", "how_to_use.md", "ai_qa.md", "export_schema.md"}
+EXPECTED_DOCS = {"readme.md", "decisions.md", "ai_collaboration.md", "agents.md", "how_to_run.md", "how_to_use.md", "ai_qa.md", "export_schema.md", "answers.md"}
+FOCUS_ANGLES = ["왜 이렇게 했나", "버린 대안과 무엇이 다른가", "이 결정이 틀리는 입력·약점은", "무엇으로 확인했나",
+                "조건이 바뀌거나 자료가 10배가 되면", "AI 첫 제안과 무엇이 달랐고 누가 바꿨나"]
 SIGNS = {
     "권한": r"\b(role|admin|operator|member|login|session|auth)\b|권한|운영자|로그인",
     "저장": r"sqlite|\.db\b|json\.dump|writefile|insert into|update\s+\w+\s+set",
@@ -112,6 +115,7 @@ def main(argv):
         q[1].append("핵심 계산에서 더 단순한 방법 대신 이 방식을 택한 근거(요구사항·담당자 답)와 대안과의 차이, 감수한 한계는?")
     else:
         q[1].append("왜 별도의 최적화·탐색 알고리즘 없이 규칙 방식으로 했나? 그 한계와 다음 개선안은?")
+    q[1].append("핵심 로직이 실제로 무엇을 하는지 입력 한 건으로 단계별로 설명하면? 왜 그렇게 했나?")
     for d in decisions[:2]:
         q[1].append(f"{d[0]}「{d[1][:40]}」을 고른 이유와 버린 대안, 그 선택의 약점은?")
     q[2].append(f"입력이 들어와 결과가 화면에 보이기까지 거치는 모듈({names})의 책임과 데이터 흐름은?")
@@ -128,7 +132,10 @@ def main(argv):
         q[3].append(f"`{r.as_posix()}`는 무엇을 보장하고 무엇은 보장하지 못하나?")
     q[4].append("계산·저장 중 오류가 나면 코드상 어떻게 되나? 이전 결과는 어떻게 되나?")
     q[4].append("다른 운영자가 동시에 수정하거나 같은 요청이 두 번 오면?" + ("" if has["동시성"] else " (지금 구현에 대책이 없다면 운영 전에 무엇을 넣나?)"))
-    unowned = [k for k, v in OWNERSHIP.items() if not re.search(v, doc_blob, re.I)]
+    q[4].append("서비스 장애는 어디서 가장 먼저 날 것 같나? 그 지점에서 지금 코드는 어떻게 동작하고, 운영 전에 무엇을 더 하나?")
+    # 질문 제목(#)·틀 안내(>)에 있는 낱말은 실제로 적은 책임 경계가 아니다.
+    body = "\n".join(l for l in doc_blob.splitlines() if not l.lstrip().startswith(("#", ">")))
+    unowned = [k for k, v in OWNERSHIP.items() if not re.search(v, body, re.I)]
     if unowned:
         q[4].append("자료가 틀리면 누가 발견하고, 누가 고치고, 누가 승인하고, 어떤 증거로 복구하나? 그동안 확정 결과는 어떻게 되나?"
                     f" (제출 문서에 없는 것: {', '.join(unowned)})")
@@ -155,6 +162,27 @@ def main(argv):
             print(f"- {line}")
         print()
     print(f"## 전제가 틀린 질문 연습\n- {false_premise} → 첫 문장: \"질문은 ○○를 전제했지만 실제 구현은 …\"\n")
+    topic = f"{decisions[0][0]}「{decisions[0][1][:40]}」" if decisions else "가장 공들인 결정"
+    print("## 집중 질문 — 출제 AI가 한 주제에 몰려 연달아 물을 때 (Answers.md 「핵심 결정 집중」에 각도마다 다른 답)")
+    for angle in FOCUS_ANGLES:
+        print(f"- {topic}: {angle}?")
+    print()
+
+    answers = next((r for r in rels if r.name.lower() == "answers.md"), None)
+    print("## Answers.md 점검")
+    if not answers:
+        print("- 없음 → ⑥에서 제출 루트에 `templates/Answers.md` 틀로 만든다(README가 추가 문서를 막으면 요구 문서의 한 절로)")
+    else:
+        lines = read(root / answers).splitlines()
+        guide = sum(1 for l in lines if l.lstrip().startswith(">"))
+        blank = sum(1 for l in lines if re.fullmatch(r"\s*-\s*(답|근거)\s*:\s*(\(.*\))?\s*", l))  # 괄호 안내만 있으면 빈칸
+        if guide:
+            print(f"- 틀 안내 줄(>) {guide}개가 남아 있다 → 지운다(출제 AI가 읽는다)")
+        if blank:
+            print(f"- 비어 있는 답·근거 {blank}칸 → 채우거나 그 질문을 지운다")
+        if not guide and not blank:
+            print(f"- `{answers.as_posix()}` 준비됨 — 사람이 전부 읽었는지 확인")
+    print()
 
     warn = [f"`{d.as_posix()}`" for d in docs if d.name.lower() not in EXPECTED_DOCS]
     nested = [r.as_posix() for r in rels if "worktree" in r.as_posix().lower()]
