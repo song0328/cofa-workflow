@@ -29,6 +29,7 @@ class PredictQuestionsTest(unittest.TestCase):
             (d/'Dockerfile').write_text('FROM python:3.12-slim\n', encoding='utf-8')
             (d/'DECISIONS.md').write_text('| # | 결정 |\n|---|---|\n| D1 | 그리디 + 2-opt로 개선 | 시간 |\n', encoding='utf-8')
             (d/'AI_COLLABORATION.md').write_text('| # | AI 제안 |\n|---|---|\n| A1 | 빈칸을 0으로 처리 | 원자료 대조 | 고침 |\n', encoding='utf-8')
+            (d/'HOW_TO_USE.md').write_text('| # | 결정·협업 |\n|---|---|\n| D2 | 단일 저장소 유지 | 운영 규모 |\n| A2 | 캐시 제안 재검토 | 내 주장은 최신성 우선 | 수정 |\n', encoding='utf-8')
             (d/'NOTES_FROM_AGENT.md').write_text('x', encoding='utf-8')
             code, out = run(d)
         self.assertEqual(code, 0)
@@ -36,9 +37,11 @@ class PredictQuestionsTest(unittest.TestCase):
             self.assertIn(f'## {k}.', out)
         self.assertIn('D1「그리디 + 2-opt로 개선', out)
         self.assertIn('A1 「빈칸을 0으로 처리', out)
+        self.assertIn('D2「단일 저장소 유지', out)
+        self.assertIn('A2 「캐시 제안 재검토', out)
         self.assertIn('`app/planner.py`', out)
         self.assertIn('`verify_plan.py`는 무엇을 보장', out)
-        self.assertIn('역할(운영자·이용자 등)', out)
+        self.assertIn('사용자·운영자·담당자 중 실제 역할', out)
         self.assertIn('`Dockerfile`', out)
         self.assertIn('계산을 작업 큐로 비동기 처리한 이유는?', out)   # 비동기 없음 → 틀린 전제
         self.assertIn('`NOTES_FROM_AGENT.md`', out)                 # 출제 범위 경고
