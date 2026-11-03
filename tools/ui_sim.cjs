@@ -4,7 +4,7 @@
 //   node ui_sim.cjs index.html "set employeeId=E1" "set start=2026-11-07" "click request" "read message balances"
 //   node ui_sim.cjs index.html --list        # id가 있는 칸·버튼 목록
 // 명령: set <id>=<값> · click <id> · submit <id> · read <id> [<id>…] · options <id>
-// 한계: 진짜 브라우저가 아니다. 레이아웃·CSS·fetch·서버 응답은 확인하지 못한다. 화면 확인은 사람이 따로 한다.
+// 비동기 이벤트가 돌려준 Promise까지 기다린다. 레이아웃·CSS·fetch·서버 응답은 확인하지 못한다.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 
@@ -44,8 +44,8 @@ class El {
   addEventListener(t, f) { (this.listeners[t] ||= []).push(f); } removeEventListener(t, f) { this.listeners[t] = (this.listeners[t] || []).filter(x => x !== f); }
   querySelector(s) { return query(s, this)[0] || null; } querySelectorAll(s) { return query(s, this); }
   closest() { return null; } focus() {} blur() {} reset() {}
-  fire(type) { const ev = { type, target: this, currentTarget: this, preventDefault() {}, stopPropagation() {} }; const h = this['on' + type]; if (typeof h === 'function') h.call(this, ev); for (const f of this.listeners[type] || []) f.call(this, ev); }
-  click() { this.fire('click'); }
+  fire(type) { const ev = { type, target: this, currentTarget: this, preventDefault() {}, stopPropagation() {} }; const pending = []; const h = this['on' + type]; if (typeof h === 'function') pending.push(h.call(this, ev)); for (const f of this.listeners[type] || []) pending.push(f.call(this, ev)); return Promise.all(pending); }
+  click() { return this.fire('click'); }
 }
 function all(root) { const out = []; const walk = n => { for (const c of n.children) { out.push(c); walk(c); } }; walk(root); return out; }
 function query(sel, root) { const s = sel.trim();
@@ -87,6 +87,7 @@ sandbox.window = sandbox; sandbox.self = sandbox; sandbox.globalThis = sandbox; 
 vm.createContext(sandbox);
 
 let failed = false;
+async function run() {
 for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
   const src = attr(m[1], 'src'); const type = attr(m[1], 'type');
   if (type && !/javascript|module/i.test(type)) continue;
@@ -95,19 +96,19 @@ for (const m of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
   try { vm.runInContext(code, sandbox, { filename: name }); } catch (e) { console.log(`✗ 스크립트 오류 (${name}): ${e.message}`); failed = true; }
 }
 doc.readyState = 'complete';
-for (const t of ['DOMContentLoaded', 'load']) for (const f of docListeners[t] || []) { try { f({ type: t }); } catch (e) { console.log(`✗ ${t} 처리 오류: ${e.message}`); failed = true; } }
+for (const t of ['DOMContentLoaded', 'load']) for (const f of docListeners[t] || []) { try { await f({ type: t }); } catch (e) { console.log(`✗ ${t} 처리 오류: ${e.message}`); failed = true; } }
 
 const show = id => { const e = byId.get(id); if (!e) return `${id}: (없음)`; const t = /^(INPUT|SELECT|TEXTAREA)$/.test(e.tagName) ? `값=${JSON.stringify(e.value)}` : e.textContent.trim(); return `${id}: ${t || '(비어 있음)'}`; };
-if (steps[0] === '--list') { for (const [id, e] of byId) if (e.parentNode === body) console.log(`${e.tagName.toLowerCase().padEnd(8)} #${id}${e.tagName === 'SELECT' ? '  선택지: ' + e.options.map(o => o.value).join(', ') : ''}`); process.exit(failed ? 1 : 0); }
+if (steps[0] === '--list') { for (const [id, e] of byId) if (e.parentNode === body) console.log(`${e.tagName.toLowerCase().padEnd(8)} #${id}${e.tagName === 'SELECT' ? '  선택지: ' + e.options.map(o => o.value).join(', ') : ''}`); return process.exit(failed ? 1 : 0); }
 
 for (const step of steps) {
   const [cmd, ...rest] = step.trim().split(/\s+/); const arg = rest.join(' ');
   try {
     if (cmd === 'set') { const i = arg.indexOf('='); const id = arg.slice(0, i), v = arg.slice(i + 1); const e = byId.get(id); if (!e) throw Error(`#${id} 없음`);
       if (e.tagName === 'SELECT' && e.options.length && !e.options.some(o => o.value === v)) console.log(`! #${id}에 "${v}" 선택지가 없음 (있는 것: ${e.options.map(o => o.value).join(', ')})`);
-      if (e.attrs.type === 'checkbox' || e.attrs.type === 'radio') e.checked = v === 'true' || v === 'on'; else e.value = v; e.fire('input'); e.fire('change'); console.log(`→ set ${id}=${v}`); }
-    else if (cmd === 'click') { const e = byId.get(arg); if (!e) throw Error(`#${arg} 없음`); e.click(); if (e.attrs.type === 'submit' || (e.tagName === 'BUTTON' && !e.attrs.type)) { const f = formOf(e); if (f) f.fire('submit'); } console.log(`→ click ${arg}`); }
-    else if (cmd === 'submit') { const e = byId.get(arg) || (arg === 'form' ? forms[0]?.f : null); if (!e) throw Error(`#${arg} 없음`); e.fire('submit'); console.log(`→ submit ${arg}`); }
+      if (e.attrs.type === 'checkbox' || e.attrs.type === 'radio') e.checked = v === 'true' || v === 'on'; else e.value = v; await e.fire('input'); await e.fire('change'); console.log(`→ set ${id}=${v}`); }
+    else if (cmd === 'click') { const e = byId.get(arg); if (!e) throw Error(`#${arg} 없음`); await e.click(); if (e.attrs.type === 'submit' || (e.tagName === 'BUTTON' && !e.attrs.type)) { const f = formOf(e); if (f) await f.fire('submit'); } console.log(`→ click ${arg}`); }
+    else if (cmd === 'submit') { const e = byId.get(arg) || (arg === 'form' ? forms[0]?.f : null); if (!e) throw Error(`#${arg} 없음`); await e.fire('submit'); console.log(`→ submit ${arg}`); }
     else if (cmd === 'read') rest.forEach(id => console.log('  ' + show(id).replace(/\n/g, '\n    ')));
     else if (cmd === 'options') { const e = byId.get(arg); console.log(`  ${arg} 선택지: ${e ? e.options.map(o => `${o.value}(${o.textContent})`).join(', ') || '(없음)' : '(없음)'}`); }
     else throw Error(`모르는 명령: ${cmd}`);
@@ -115,3 +116,5 @@ for (const step of steps) {
 }
 for (const l of logs) console.log('  console ' + l);
 process.exit(failed ? 1 : 0);
+}
+run().catch(e => { console.error(`✗ ui_sim 오류: ${e.message}`); process.exit(1); });

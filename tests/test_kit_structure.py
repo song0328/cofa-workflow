@@ -4,6 +4,8 @@ import importlib.util
 import io
 from pathlib import Path
 import re
+import subprocess
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,6 +79,18 @@ class KitStructureTest(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(kr.main(['playbooks/stakeholder.md', '없는 절']), 1)
             self.assertEqual(kr.main(['playbooks/codex.md']), 0)
+        with tempfile.TemporaryDirectory() as d:
+            page = Path(d)/'async.html'
+            page.write_text('''<button id="go">go</button><div id="status"></div><script>
+document.getElementById("go").onclick = async () => {
+  document.getElementById("status").textContent = "BUSY";
+  await Promise.resolve();
+  document.getElementById("status").textContent = "DONE";
+};
+</script>''', encoding='utf-8')
+            done = subprocess.run(['node', str(ROOT/'tools'/'ui_sim.cjs'), str(page), 'click go', 'read status'], capture_output=True, text=True, encoding='utf-8')
+            self.assertEqual(done.returncode, 0, done.stderr)
+            self.assertIn('status: DONE', done.stdout)
 
 
 if __name__ == '__main__':
