@@ -111,6 +111,10 @@ class PredictQuestionsTest(unittest.TestCase):
             self.assertIn('비어 있는 답 9개', part)
             self.assertIn('「핵심 결정 집중」 빈 칸 6개', part)
             self.assertNotIn('따로 생긴 문서: `Answers.md`', out)   # 출제 범위 경고 대상 아님
+            (d/'MY.md').write_text((ROOT/'templates'/'MY.md').read_text(encoding='utf-8') + '19:40 | 함 | 로그인 권한 메모\n', encoding='utf-8')
+            _, out = run(d)
+            self.assertNotIn('`MY.md`', out.split('## 출제 범위 경고')[-1] if '## 출제 범위 경고' in out else '')   # 의도된 제출물
+            self.assertNotIn('권한은 어디서 막나', out)              # 메모의 단어로 보안 질문을 만들지 않는다
             (d/'Answers.md').write_text('# Answers\n## 1. 핵심 로직은?\n정원을 넘으면 대기로 보낸다.\n\n## 2. 장애는?\n(답)\n', encoding='utf-8')
             _, out = run(d)
             self.assertIn('비어 있는 답 1개', out)                    # 괄호 안내만 남은 2번

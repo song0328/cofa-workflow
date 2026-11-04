@@ -16,7 +16,7 @@ from pathlib import Path
 
 CODE = {".py", ".js", ".cjs", ".mjs", ".ts", ".tsx", ".jsx", ".html", ".go", ".java"}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "dist", "build", ".cache", ".codex", ".agents", "kit", "notes"}
-EXPECTED_DOCS = {"readme.md", "decisions.md", "ai_collaboration.md", "agents.md", "how_to_run.md", "how_to_use.md", "ai_qa.md", "export_schema.md", "answers.md"}
+EXPECTED_DOCS = {"readme.md", "decisions.md", "ai_collaboration.md", "agents.md", "how_to_run.md", "how_to_use.md", "ai_qa.md", "export_schema.md", "answers.md", "my.md"}
 FOCUS_ANGLES = ["왜 이렇게 했나", "버린 대안과 무엇이 다른가", "이 결정이 틀리는 입력·약점은", "무엇으로 확인했나",
                 "조건이 바뀌거나 자료가 10배가 되면", "AI 첫 제안과 무엇이 달랐고 누가 바꿨나"]
 SIGNS = {
@@ -108,6 +108,8 @@ def main(argv):
     has = {k: bool(re.search(v, blob)) for k, v in SIGNS.items()}
     # README가 요구한 문서 안에 결정·협업 기록을 넣는 것이 우선이다. 별도 파일만 가정하지 않는다.
     doc_blob = "\n".join(read(root / r) for r in docs)
+    # 보안 질문 판단은 과제 문서로만(AGENTS.md 상시 규칙·MY.md 메모의 일반 단어로 질문이 생기지 않게)
+    task_docs = "\n".join(read(root / r) for r in docs if r.name.lower() not in {"agents.md", "my.md"})
     decisions = table_rows(doc_blob, "D")
     ai_rows = table_rows(doc_blob, "A")
     names = ", ".join(f"`{r.as_posix()}`" for r in code[:6]) or "(코드 파일 없음)"
@@ -123,7 +125,7 @@ def main(argv):
     q[2].append(f"입력이 들어와 결과가 화면에 보이기까지 거치는 모듈({names})의 책임과 데이터 흐름은?")
     if has["저장"]:
         q[2].append("계획·상태 데이터는 어디에 저장되고 누가 바꾸며 누가 읽나?")
-    security_scope = has['권한'] or bool(re.search(r'권한|운영자|관리자|로그인|비밀번호|개인정보|\b(?:role|admin|operator|login|session|auth)\b', doc_blob, re.I))
+    security_scope = has['권한'] or bool(re.search(r'권한|운영자|관리자|로그인|비밀번호|개인정보|\b(?:role|admin|operator|login|session|auth)\b', task_docs, re.I))
     if security_scope:
         q[2].append("사용자·운영자·담당자 중 실제 역할 하나의 입력이 어느 파일·함수에서 검증되고 어떤 상태를 바꾼 뒤 다음 역할의 화면에 보이나? 권한은 어디서 막나?")
         q[2].append('README·담당자 답의 어떤 보안 요구를 SSOT 권한표로 옮겼고, 그 표의 한 행을 실제 어느 파일·함수/API가 강제하며 어떤 권한 밖 요청으로 확인했나?')
