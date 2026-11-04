@@ -28,6 +28,7 @@ class KitSetupTest(unittest.TestCase):
             self.assertIn(ROOT.as_posix(), text)
             self.assertNotIn('<키트>', text)
             self.assertIn('codex', out)
+            self.assertTrue((ROOT/'notes'/'MY.md').exists())   # 사람이 직접 쓰는 기록
             run('--dir', d)
             self.assertEqual((Path(d)/'AGENTS.md').read_text(encoding='utf-8'), text)   # 두 번 돌려도 그대로
 
