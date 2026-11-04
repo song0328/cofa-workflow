@@ -6,7 +6,7 @@
 1. **무힌트 회상 5분**: 사람은 코드·문서·노트 없이 `MY.md` 「끝나고」에 네 문장 — ① 만든 것과 데이터 흐름 ② 핵심 결정·이유·버린 대안 ③ 직접 확인한 숫자 ④ 가장 큰 한계와 운영 첫 일. AI는 대신 쓰지 않고 틀린 사실만 말한다. 그다음 AI가 `MY.md`의 안 옮긴 결정·의심 줄을 AGENTS.md 「6」 기록과 노트 카드 6에 옮긴다.
 2. **답 틀 한 번 보기**(9개 카드를 외우지 않는다): `python3 <키트>/tools/kit_read.py playbooks/answer-cards.md "모든 답의 뼈대" "5분 쓰는 법" "하지 않는 것"`
 3. **모의 확인 문제**: `python3 <키트>/tools/predict_questions.py .`의 6칸·「집중 질문」에서 **한 번에 하나씩**, 1개는 전제를 틀리게. 사람은 1~3문장, AI는 코드와 대조해 0~3점과 표시만(`근거 없는 숫자`·`없는 기능`·`과장`·`막다른 답`·`증거 없음`). 약한 칸은 조건을 바꿔 한 번 더. 틀린 사실은 노트 「말하면 안 되는 미확인 주장」에, 문서가 코드와 다르면 문서를 고친다. 「출제 범위 경고」 파일은 빼거나 설명할 수 있게.
-4. **`Answers.md`**(제출 루트): 틀 `templates/Answers.md`, 분량은 `templates/Answers-example.md`. README가 추가 문서를 막으면 요구 문서의 한 절로(`playbooks/followup-prep.md` "Answers.md"). 확인된 사실만 쉬운 말로. 사람이 전부 읽고 내 말과 다른 문장을 고치게 한 뒤 `답 파일 보여 줘`로 두 번.
+4. **`Answers.md`**(제출 루트): 틀 `templates/Answers.md`, 분량은 `templates/Answers-example.md`. README가 추가 문서를 막으면 요구 문서의 한 절로(`playbooks/followup-prep.md` "Answers.md"). 8번 「기술·만든 순서」는 실제 코드·명령으로(answer-cards.md 카드 5 "구축 과정"). 확인된 사실만 쉬운 말로. 사람이 전부 읽고 내 말과 다른 문장을 고치게 한 뒤 `답 파일 보여 줘`로 두 번.
 5. ⑥을 마쳤는데 제출 시작(15분 남음)까지 20분 이상 남으면: `playbooks/final-review.md` 동결 점검(1·2·3, 새 기능 없이).
 6. 제출 뒤 질문 생성 대기 5~10분: `Answers.md` 「한눈에」·「핵심 결정 집중」 떠올리기(⑦).
 

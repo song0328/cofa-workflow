@@ -108,7 +108,7 @@ class PredictQuestionsTest(unittest.TestCase):
             _, out = run(d)
             part = out.split('## Answers.md 점검')[1]
             self.assertIn('틀 안내 줄(>) 6개', part)
-            self.assertIn('비어 있는 답 8개', part)
+            self.assertIn('비어 있는 답 9개', part)
             self.assertIn('「핵심 결정 집중」 빈 칸 6개', part)
             self.assertNotIn('따로 생긴 문서: `Answers.md`', out)   # 출제 범위 경고 대상 아님
             (d/'Answers.md').write_text('# Answers\n## 1. 핵심 로직은?\n정원을 넘으면 대기로 보낸다.\n\n## 2. 장애는?\n(답)\n', encoding='utf-8')
