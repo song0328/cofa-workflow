@@ -36,15 +36,16 @@
 | AI가 혼자 정하면 안 되는 지점 · A/B를 다른 세션에 물을 때 | `playbooks/decision-gates.md` |
 | 자료끼리 다름·단서 조항·경계값 | `playbooks/traps.md` |
 | 기능을 더 넣을지·과설계 | `playbooks/scope.md` |
+| 다 됐는데 시간이 남음 | `playbooks/final-review.md` |
 | 검증 방법·ui_sim·지도 화면 | `playbooks/verification.md` |
 | 서버·미리보기·환경 오류 | `playbooks/flow.md` "화면 미리보기" · `playbooks/environment.md` |
 | Codex가 같은 실수·코드를 망침 | `playbooks/recover.md` · `playbooks/git.md` |
 | 담당자 답 변경·설치 실패·데이터 깨짐 등 돌발 | `playbooks/situations.md` |
 | 모델·생각 강도·승인 창·끊김·재접속·토큰 | `playbooks/codex.md` |
 | 계약 확정 뒤 읽기 전용 검증 탭이 꼭 필요할 때(선택) | `playbooks/parallel.md` |
-| 시험 화면 동작·제출 흐름·환경 사실 | `playbooks/exam-screen.md` |
+| 시험 화면·제출 흐름·환경 | `playbooks/exam-screen.md` |
 | 서술형 답 틀(9가지 카드) · 노트 규칙 | `playbooks/answer-cards.md` · `playbooks/followup-prep.md` |
-| 사람이 보낼 말 전체 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
+| 사람이 보낼 말 · 자주 나온 실수 | `playbooks/flow.md` 해당 절 |
 | 평가가 보는 것(세부 16항목) | `playbooks/evaluation.md` |
 | 예측·분류·모델 평가 / 반도체 자료(수율·결함·관리도) | `playbooks/types/prediction.md` · `knowledge/semiconductor.md` |
 | 시험 전 리허설·연습 과제 | `playbooks/rehearsal.md` · `practice/README.md` |
