@@ -10,7 +10,7 @@
 ## 조건이 맞으면 더 읽기 (절만: `python3 <키트>/tools/kit_read.py <파일> "<절>"`)
 | 조건 | 읽을 것 |
 |---|---|
-| 자료 예외를 더 찾아야 | `playbooks/edge-hunt.md` "사람 눈으로 볼 8가지" |
+| 자료 예외를 더 찾아야 | `playbooks/edge-hunt.md` "사람 눈으로 볼 9가지" |
 | 계산·배정·경로·일정·"최적" | `playbooks/types/optimization.md` "먼저 볼 것" |
 | 로그인·역할·관리자 | `knowledge/security.md` "담당자에게 물을 것" |
 | 다른 주제(날짜·금액·예약 등) | `knowledge/README.md` 표에서 1개 → 그 파일 "담당자에게 물을 것"·"흔한 함정" |
