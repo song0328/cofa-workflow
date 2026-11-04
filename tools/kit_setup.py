@@ -53,6 +53,10 @@ def setup_agents(task, template):
 
 
 def main(argv=None):
+    try:
+        sys.stdout.reconfigure(errors="replace")   # Windows 콘솔(cp949)에서도 출력 때문에 멈추지 않게
+    except (AttributeError, ValueError):
+        pass
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dir", default=".", help="과제 폴더(기본: 현재 폴더)")
     a = ap.parse_args(argv)
