@@ -8,7 +8,7 @@ Codex는 지침(AGENTS.md)을 **세션을 시작할 때** 읽는다. 세션 도�
 하는 일 (과제 원본은 지우거나 바꾸지 않는다)
 1. 과제 폴더 AGENTS.md: 없으면 키트 틀로 만든다. 과제가 준 AGENTS.md가 있으면 원문을 그대로 두고 맨 위에 「0. 상시 규칙」만 덧붙인다. 이미 있으면 아무것도 안 한다.
 2. AGENTS.override.md가 있으면 경고한다(AGENTS.md를 가린다 — 건드리지 않고 사람에게 알린다).
-3. 키트 폴더에 notes/확인문제-노트.md(AI용), notes/MY.md(사람이 직접 쓰는 기록), work/를 만든다(제출 폴더 밖).
+3. 키트 폴더에 notes/확인문제-노트.md(AI용), work/를 만든다(제출 폴더 밖). 과제 폴더에 MY.md(사람이 직접 쓰는 과정 기록 · 제출물)가 없으면 만든다.
 4. 환경을 한 번에 본다: python3·node·git·docker, 쓸 수 있는 라이브러리, 디스크·메모리, 키트 커밋.
 마지막 줄에 다음에 칠 것을 알려 준다.
 """
@@ -74,10 +74,10 @@ def main(argv=None):
     if not note.exists():
         shutil.copy(KIT / "templates" / "answer-notes.md", note)
         lines.append(f"노트: {note} 만듦")
-    my = KIT / "notes" / "MY.md"
+    my = task / "MY.md"
     if not my.exists():
         shutil.copy(KIT / "templates" / "MY.md", my)
-        lines.append(f"내 기록: {my} 만듦 — AI가 일하는 동안 에디터에서 한 줄씩 쓴다(Ctrl+S)")
+        lines.append(f"내 기록: {my} 만듦 — AI가 일하는 동안 에디터에서 한 줄씩 쓴다(Ctrl+S) · 제출물")
     libs = [m for m in LIBS if importlib.util.find_spec(m)]
     du = shutil.disk_usage(task)
     mem = ""

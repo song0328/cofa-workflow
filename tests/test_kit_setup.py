@@ -28,8 +28,11 @@ class KitSetupTest(unittest.TestCase):
             self.assertIn(ROOT.as_posix(), text)
             self.assertNotIn('<키트>', text)
             self.assertIn('codex', out)
-            self.assertTrue((ROOT/'notes'/'MY.md').exists())   # 사람이 직접 쓰는 기록
+            my = Path(d)/'MY.md'
+            self.assertTrue(my.exists())   # 사람이 직접 쓰는 과정 기록 · 제출 루트
+            my.write_text('19:02 | 함 | 내 기록', encoding='utf-8')
             run('--dir', d)
+            self.assertEqual(my.read_text(encoding='utf-8'), '19:02 | 함 | 내 기록')   # 두 번째 실행이 덮지 않는다
             self.assertEqual((Path(d)/'AGENTS.md').read_text(encoding='utf-8'), text)   # 두 번 돌려도 그대로
 
     def test_preserves_task_agents_and_warns_override(self):
